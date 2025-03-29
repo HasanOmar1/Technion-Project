@@ -75,12 +75,12 @@ console.log(drinks);
 // num += 100;
 // console.log(num); //200
 
-for (var i = 1; i <= 3; i++);
-console.log(i);
+// for (var i = 1; i <= 3; i++);
+// console.log(i);
 
-// i = 4
+// // i = 4
 
-for (let j = 1; j <= 3; j++);
-console.log(j);
+// for (let j = 1; j <= 3; j++);
+// console.log(j);
 
 // j is not defined
