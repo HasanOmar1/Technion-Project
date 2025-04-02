@@ -3,10 +3,10 @@
 document.writeln("Hasan");
 document.writeln("Omar");
 
-console.log("Hasan Omar");
+// console.log("Hasan Omar");
 
-const drinks = ["Kola", "Pepsi", "7UP"];
-console.log(drinks);
+// const drinks = ["Kola", "Pepsi", "7UP"];
+// console.log(drinks);
 
 // let name = prompt("Whats your name", "Hasan");
 // alert(name);
