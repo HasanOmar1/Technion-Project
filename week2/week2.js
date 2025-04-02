@@ -1,3 +1,5 @@
+"use strict";
+
 const product = {
   id: 1,
   name: "House",
