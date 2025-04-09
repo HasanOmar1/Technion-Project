@@ -1,3 +1,7 @@
+"use strict";
+
+// חסן עומר + עיסא לואבנה
+
 // True Or False
 // https://lofty-page-4ab.notion.site/True-or-False-1cc6c24c99bf8190af47fc396d43cb38
 
@@ -162,4 +166,118 @@
 // https://lofty-page-4ab.notion.site/Loops-1cc6c24c99bf813c967ee35c6bbe1c9a
 
 // ********************************************************
+
 // Q1
+// let sum=0;
+// let i =1;
+// while(i<=100){
+// sum+=i++;
+
+// }
+// console.log(sum);
+
+// ********************************************************
+// Q2
+
+// let num;
+// do {
+//   num = Number(prompt("enter a number"));
+// } while (num <= 0 || isNaN(num));
+// console.log(num);
+
+// ********************************************************
+// Q3
+
+// let num = 7;
+// for (let i = 1; i <= 10; i++) {
+//   console.log(`${num}*${i}=${num * i}`);
+// }
+
+// ********************************************************
+// Q4
+
+// const secret = 7;
+// let guess;
+
+// for (; guess != secret; ) {
+//   guess = Number(prompt("guess a number between 1 and 10"));
+//   if (guess === secret) {
+//     alert("you win");
+//     break;
+//   } else if (guess > secret) alert("too high");
+//   else alert("too low");
+// }
+
+// ********************************************************
+// Q5
+
+// for (let i = 0; i <= 30; i++) {
+//   if (i % 3 === 0) {
+//     continue;
+//   }
+//   console.log(i);
+// }
+
+// ********************************************************
+// Q6
+
+// let i = 3;
+
+// while (i) {
+//   alert(i--); // 3 2 1
+// }
+
+// ********************************************************
+// Q7
+
+// no
+// let i = 0; // prints  1 2 3 4 5
+// while (i++ < 5) {
+//   console.log(i);
+// }
+// console.log("****");
+// let j = 0; // prints 1 2 3 4
+// while (++j < 5) {
+//   console.log(j);
+// }
+
+// ********************************************************
+// Q8
+
+// yes
+// for (let i = 0; i < 5; i++) {
+//   // 0 1 2 3 4
+//   console.log(i);
+// }
+// console.log("****");
+
+// for (let i = 0; i < 5; ++i) {
+//   //  // 0 1 2 3 4
+//   console.log(i);
+// }
+
+// ********************************************************
+// Q9
+
+// for (let i = 2; i <= 10; i += 2) console.log(i);
+
+// or
+
+// for (let i = 2; i <= 10; i++) {
+//   if (i % 2 === 0) {
+//     console.log(i);
+//   }
+// }
+
+// ********************************************************
+// Q10
+
+// for (let i = 0; i < 3; i++) {
+//   alert(`number ${i}!`);
+// }
+
+// let i = 0;
+// while (i < 3) {
+//   alert(`number ${i}!`);
+//   i++;
+// }
