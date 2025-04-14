@@ -38,10 +38,13 @@ h1 {
   padding: 30px;
 }
 
+#data-length {
+  font-size: 1.3rem;
+}
+
 .actions-container {
-  margin-top: 10px;
+  margin-top: 13px;
   display: flex;
-  border: 1px solid red;
   position: relative;
   align-items: center;
   justify-content: space-between;
@@ -71,12 +74,17 @@ h1 {
   padding: 15px 10px;
   outline: none;
   border: none;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   border: 2px solid transparent;
+  padding-right: 31px;
 }
 
 #search-bar:focus {
   border: 2px solid var(--secondary-color);
+}
+
+#search-bar::placeholder {
+  font-size: 1rem;
 }
 
 .svgs-container {
@@ -84,6 +92,6 @@ h1 {
   gap: 5px;
 }
 
-.svgs-container img:hover {
+.actions-container img {
   cursor: pointer;
 }
