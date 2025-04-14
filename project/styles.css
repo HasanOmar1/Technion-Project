@@ -1,0 +1,89 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #00adb5;
+  --secondary-color: #393e46;
+}
+
+body {
+  background-color: #222831;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.big-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  color: var(--primary-color);
+  font-size: 3rem;
+}
+
+.data-container {
+  color: var(--secondary-color);
+  background-color: #eeeeeecc;
+  width: 50%;
+  height: 600px;
+  border-radius: 10px;
+  margin-top: 50px;
+  padding: 30px;
+}
+
+.actions-container {
+  margin-top: 10px;
+  display: flex;
+  border: 1px solid red;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actions-container img {
+  width: 25px;
+}
+
+.actions-container #add-contact-icon {
+  right: 0;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container #search-icon {
+  top: 5px;
+  position: absolute;
+  left: 170px;
+}
+
+#search-bar {
+  width: 200px;
+  height: 25px;
+  padding: 15px 10px;
+  outline: none;
+  border: none;
+  font-size: 1.3rem;
+  border: 2px solid transparent;
+}
+
+#search-bar:focus {
+  border: 2px solid var(--secondary-color);
+}
+
+.svgs-container {
+  display: flex;
+  gap: 5px;
+}
+
+.svgs-container img:hover {
+  cursor: pointer;
+}
