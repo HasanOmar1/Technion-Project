@@ -12,7 +12,7 @@
       <h1>Phone Book</h1>
 
       <div class="data-container">
-        <p id="data-length">You have 4 contacts</p>
+        <p id="data-length"></p>
 
         <div class="actions-container">
           <div class="input-container">
@@ -38,6 +38,7 @@
             <img
               src="./images/svgs/delete-all-contact-svg.png"
               alt="delete-all-contacts-svg"
+              id="delete-all-contacts"
             />
           </div>
         </div>
@@ -45,6 +46,41 @@
         <div class="contacts-container"></div>
       </div>
     </div>
+
+    <div id="backdrop"></div>
+
+    <form class="add-contact-menu">
+      <h3>Add Contact Form</h3>
+      <div class="x" id="close-menu">X</div>
+      <div class="name-container">
+        <label for="name-input">Name *:</label>
+        <input
+          type="text"
+          name="name"
+          id="name-input"
+          maxlength="20"
+          required
+        />
+      </div>
+      <div class="phone-container">
+        <label for="phone-input">Phone *:</label>
+        <input type="number" name="phone" id="phone-input" required />
+      </div>
+      <div class="address-container">
+        <label for="address-input">Address :</label>
+        <input type="text" name="address" id="address-input" />
+      </div>
+      <div class="age-container">
+        <label for="age-input">Age :</label>
+        <input type="number" name="age" id="age-input" min="1" max="120" />
+      </div>
+      <div class="image-container">
+        <label for="image-input">Image URL :</label>
+        <input type="text" name="image" id="image-input" />
+      </div>
+
+      <button id="add-contact-btn">Add</button>
+    </form>
     <script src="./javascript/index.js" type="module"></script>
   </body>
 </html>

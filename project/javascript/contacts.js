@@ -1,5 +1,6 @@
 export let contacts = [
   {
+    id: 1,
     name: "John Cena",
     img: "./images/contacts/john-cena.jpg",
     age: 31,
@@ -7,6 +8,7 @@ export let contacts = [
     address: "USA",
   },
   {
+    id: 2,
     name: "The Rock",
     img: "./images/contacts/the-rock.jpg",
     age: 34,
