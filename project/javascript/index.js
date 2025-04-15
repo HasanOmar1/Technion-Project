@@ -103,8 +103,6 @@ const addContact = (data) => {
 addContactOpenMenu.addEventListener("click", (e) => {
   formMenu.style.display = "flex";
   backDrop.className = "backdrop";
-
-  // addContact(shroud);
 });
 
 closeMenu.addEventListener("click", (e) => {
@@ -114,6 +112,17 @@ closeMenu.addEventListener("click", (e) => {
 
 formMenu.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  const data = {
+    id: contacts.length + 1,
+    name: nameInput.value,
+    img: imageInput.value,
+    age: ageInput.value,
+    phone: phoneInput.value,
+    address: addressInput.value,
+  };
+  addContact(data);
+
   nameInput.value = "";
   phoneInput.value = "";
   addressInput.value = "";
@@ -122,6 +131,8 @@ formMenu.addEventListener("submit", (e) => {
 
   formMenu.style.display = "none";
   backDrop.className = "";
+
+  console.log(contacts);
 });
 
 const deleteAllContacts = () => {
