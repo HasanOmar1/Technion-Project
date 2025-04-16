@@ -57,7 +57,14 @@ searchBar.addEventListener("input", (e) => {
   sortArr(allData);
   renderContacts(allData);
 
-  if (!allData.length) contactsContainer.style.backgroundColor = "transparent";
+  if (!allData.length) {
+    contactsContainer.style.backgroundColor = "transparent";
+    contactsContainer.style.borderTop = "none";
+    contactsContainer.style.borderBottom = "none";
+  } else {
+    contactsContainer.style.borderTop = "1px solid #00adb5;";
+    contactsContainer.style.borderBottom = "1px solid #00adb5;";
+  }
 
   dataLength.innerText = `${allData.length} Contacts`;
 });
@@ -67,7 +74,6 @@ const addContactOpenMenu = document.querySelector("#add-contact-icon");
 const formMenu = document.querySelector(".add-contact-menu");
 const backDrop = document.querySelector("#backdrop");
 const closeMenu = document.querySelector("#close-menu");
-const addContactBtn = document.querySelector("#add-contact-btn");
 
 // inputs
 const nameInput = document.querySelector("#name-input");
@@ -86,6 +92,7 @@ const emptyContacts = () => {
     allData.length > 0 ? "#222831" : "transparent";
 };
 
+// adds contact to the phone book
 const addContact = (data) => {
   contacts.push(data);
   const contactInfo = document.createElement("div");
@@ -107,8 +114,12 @@ const addContact = (data) => {
   const contactName = document.createElement("p");
   contactName.innerText = data.name;
 
+  const contactPhone = document.createElement("p");
+  contactPhone.innerText = data.phone;
+
   leftSide.append(leftSideImg);
   leftSide.append(contactName);
+  leftSide.append(contactPhone);
 
   const contactInfoSvg = document.createElement("img");
   contactInfoSvg.src = "./images/svgs/info-svg.png";
@@ -173,8 +184,6 @@ formMenu.addEventListener("submit", (e) => {
 
   formMenu.style.display = "none";
   backDrop.className = "";
-
-  console.log(contacts);
 });
 
 const deleteAllContacts = () => {
@@ -213,11 +222,27 @@ const renderContacts = (array) => {
     leftSideImg.src = info.img;
     leftSideImg.alt = info.name;
 
+    const nameAndPhoneContainer = document.createElement("div");
+    nameAndPhoneContainer.className = "name-phone-container";
+
+    const contactNameSpan = document.createElement("span");
+    contactNameSpan.innerText = `Name: `;
     const contactName = document.createElement("p");
-    contactName.innerText = info.name;
+    contactName.append(contactNameSpan);
+    contactName.append(info.name);
+
+    const contactPhone = document.createElement("p");
+    const contactPhoneSpan = document.createElement("span");
+    contactPhoneSpan.innerText = `Phone: `;
+    contactPhone.append(contactPhoneSpan);
+    contactPhone.append(info.phone);
+
+    nameAndPhoneContainer.append(contactName);
+    nameAndPhoneContainer.append(contactPhone);
 
     leftSide.append(leftSideImg);
-    leftSide.append(contactName);
+    leftSide.append(nameAndPhoneContainer);
+    // leftSide.append(contactPhone);
 
     const contactInfoSvg = document.createElement("img");
     contactInfoSvg.src = "./images/svgs/info-svg.png";
