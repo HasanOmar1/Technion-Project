@@ -94,6 +94,10 @@ h1 {
   cursor: pointer;
 }
 
+#search-icon {
+  cursor: auto;
+}
+
 /* contacts */
 
 .contacts-container {
@@ -161,6 +165,7 @@ h1 {
   transform: translate(-50%, -50%);
   z-index: 99;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding: 30px;
 }
 
 .add-contact-menu h3 {

@@ -20,9 +20,39 @@ let contacts = [
   },
 ];
 
+let allData = [];
+allData = [...contacts];
+
 const contactsContainer = document.querySelector(".contacts-container");
 const deleteAllContactsBtn = document.querySelector("#delete-all-contacts");
 const dataLength = document.querySelector("#data-length");
+
+// search bar
+const searchBar = document.querySelector("#search-bar");
+let filteredContacts = [];
+
+searchBar.addEventListener("input", (e) => {
+  const searchText = e.target.value.toLowerCase();
+  const filteredByName = allData.filter((data) =>
+    data.name.toLowerCase().includes(searchText)
+  );
+
+  if (e.target.value.length != 0) {
+    allData = filteredByName;
+    emptyContacts();
+  } else {
+    allData = [...contacts];
+    emptyContacts();
+  }
+
+  console.log(allData.length);
+
+  renderContacts(allData);
+
+  if (!allData.length) contactsContainer.style.backgroundColor = "transparent";
+
+  dataLength.innerText = `${allData.length} Contacts`;
+});
 
 // form
 const addContactOpenMenu = document.querySelector("#add-contact-icon");
@@ -33,21 +63,20 @@ const addContactBtn = document.querySelector("#add-contact-btn");
 
 // inputs
 const nameInput = document.querySelector("#name-input");
+const emailInput = document.querySelector("#email-input");
 const phoneInput = document.querySelector("#phone-input");
 const addressInput = document.querySelector("#address-input");
 const ageInput = document.querySelector("#age-input");
 const imageInput = document.querySelector("#image-input");
 
-const shroud = {
-  id: contacts.length + 1,
-  name: "Shroud",
-  img: "./images/contacts/the-rock.jpg",
-  age: 32,
-  phone: 645134,
-  address: "USA",
-};
+dataLength.innerText = `${contacts.length} Contacts`;
 
-dataLength.innerText = `You have ${contacts.length} contacts`;
+// removes contacts container elements in HTML
+const emptyContacts = () => {
+  while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
+  contactsContainer.style.backgroundColor =
+    allData.length > 0 ? "#222831" : "transparent";
+};
 
 const addContact = (data) => {
   contacts.push(data);
@@ -97,7 +126,7 @@ const addContact = (data) => {
   contactsContainer.style.backgroundColor =
     contacts.length > 0 ? "#222831" : "transparent";
 
-  dataLength.innerText = `You have ${contacts.length} contacts`;
+  dataLength.innerText = `${contacts.length} Contacts`;
 };
 
 addContactOpenMenu.addEventListener("click", (e) => {
@@ -116,7 +145,11 @@ formMenu.addEventListener("submit", (e) => {
   const data = {
     id: contacts.length + 1,
     name: nameInput.value,
-    img: imageInput.value,
+    email: emailInput.value,
+    img:
+      imageInput.value.length != 0
+        ? imageInput.value
+        : "./images/contacts/no-user-image.gif",
     age: ageInput.value,
     phone: phoneInput.value,
     address: addressInput.value,
@@ -124,6 +157,7 @@ formMenu.addEventListener("submit", (e) => {
   addContact(data);
 
   nameInput.value = "";
+  emailInput.value = "";
   phoneInput.value = "";
   addressInput.value = "";
   ageInput.value = "";
@@ -137,11 +171,12 @@ formMenu.addEventListener("submit", (e) => {
 
 const deleteAllContacts = () => {
   contacts = [];
-  while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
-  contactsContainer.style.backgroundColor =
-    contacts.length > 0 ? "#222831" : "transparent";
+  allData = [];
+  emptyContacts();
+  // contactsContainer.style.backgroundColor =
+  //   allData.length > 0 ? "#222831" : "transparent";
 
-  dataLength.innerText = `You have ${contacts.length} contacts`;
+  dataLength.innerText = `${allData.length} Contacts`;
 };
 
 // const deleteContactById = (id) => {
@@ -154,50 +189,54 @@ const deleteAllContacts = () => {
 
 deleteAllContactsBtn.addEventListener("click", deleteAllContacts);
 
-contacts.map((info) => {
-  const contactInfo = document.createElement("div");
-  contactInfo.className = "contact-info";
+const renderContacts = (array) => {
+  array.map((info) => {
+    const contactInfo = document.createElement("div");
+    contactInfo.className = "contact-info";
 
-  const leftSide = document.createElement("div");
-  leftSide.className = "left";
+    const leftSide = document.createElement("div");
+    leftSide.className = "left";
 
-  const rightSide = document.createElement("div");
-  rightSide.className = "right";
+    const rightSide = document.createElement("div");
+    rightSide.className = "right";
 
-  contactInfo.append(leftSide);
-  contactInfo.append(rightSide);
+    contactInfo.append(leftSide);
+    contactInfo.append(rightSide);
 
-  const leftSideImg = document.createElement("img");
-  leftSideImg.src = info.img;
-  leftSideImg.alt = info.name;
+    const leftSideImg = document.createElement("img");
+    leftSideImg.src = info.img;
+    leftSideImg.alt = info.name;
 
-  const contactName = document.createElement("p");
-  contactName.innerText = info.name;
+    const contactName = document.createElement("p");
+    contactName.innerText = info.name;
 
-  leftSide.append(leftSideImg);
-  leftSide.append(contactName);
+    leftSide.append(leftSideImg);
+    leftSide.append(contactName);
 
-  const contactInfoSvg = document.createElement("img");
-  contactInfoSvg.src = "./images/svgs/info-svg.png";
-  contactInfoSvg.alt = "contact-info-svg";
-  contactInfoSvg.id = `contact-info-${info.id}`;
+    const contactInfoSvg = document.createElement("img");
+    contactInfoSvg.src = "./images/svgs/info-svg.png";
+    contactInfoSvg.alt = "contact-info-svg";
+    contactInfoSvg.id = `contact-info-${info.id}`;
 
-  const editContact = document.createElement("img");
-  editContact.src = "./images/svgs/edit-svg.png";
-  editContact.alt = "edit-contact-svg";
-  editContact.id = `edit-contact-${info.id}`;
+    const editContact = document.createElement("img");
+    editContact.src = "./images/svgs/edit-svg.png";
+    editContact.alt = "edit-contact-svg";
+    editContact.id = `edit-contact-${info.id}`;
 
-  const deleteContact = document.createElement("img");
-  deleteContact.src = "./images/svgs/delete-contact-svg.png";
-  deleteContact.alt = "delete-contact-svg";
-  deleteContact.id = `delete-contact-${info.id}`;
+    const deleteContact = document.createElement("img");
+    deleteContact.src = "./images/svgs/delete-contact-svg.png";
+    deleteContact.alt = "delete-contact-svg";
+    deleteContact.id = `delete-contact-${info.id}`;
 
-  rightSide.append(contactInfoSvg);
-  rightSide.append(editContact);
-  rightSide.append(deleteContact);
+    rightSide.append(contactInfoSvg);
+    rightSide.append(editContact);
+    rightSide.append(deleteContact);
 
-  contactsContainer.append(contactInfo);
-});
+    contactsContainer.append(contactInfo);
+  });
 
-contactsContainer.style.backgroundColor =
-  contacts.length > 0 ? "#222831" : "transparent";
+  contactsContainer.style.backgroundColor =
+    contacts.length > 0 ? "#222831" : "transparent";
+};
+
+renderContacts(allData);
