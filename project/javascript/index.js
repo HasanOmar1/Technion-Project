@@ -62,10 +62,11 @@ searchBar.addEventListener("input", (e) => {
     contactsContainer.style.borderTop = "none";
     contactsContainer.style.borderBottom = "none";
   } else {
-    contactsContainer.style.borderTop = "1px solid #00adb5;";
-    contactsContainer.style.borderBottom = "1px solid #00adb5;";
+    contactsContainer.style.borderTop = "1px solid #00adb5";
+    contactsContainer.style.borderBottom = "1px solid #00adb5";
   }
 
+  console.log(allData.length);
   dataLength.innerText = `${allData.length} Contacts`;
 });
 
