@@ -1,5 +1,6 @@
 // "use strict";
 // import { contacts } from "./contacts.js";
+import { sortArr } from "./utils.js";
 
 let contacts = [
   {
@@ -18,10 +19,19 @@ let contacts = [
     phone: 7654321,
     address: "Alaska",
   },
+  {
+    id: 3,
+    name: "Asd The Tiger",
+    img: "./images/contacts/no-user-image.gif",
+    age: 31,
+    phone: 321234,
+    address: "There",
+  },
 ];
 
 let allData = [];
 allData = [...contacts];
+sortArr(allData);
 
 const contactsContainer = document.querySelector(".contacts-container");
 const deleteAllContactsBtn = document.querySelector("#delete-all-contacts");
@@ -29,7 +39,6 @@ const dataLength = document.querySelector("#data-length");
 
 // search bar
 const searchBar = document.querySelector("#search-bar");
-let filteredContacts = [];
 
 searchBar.addEventListener("input", (e) => {
   const searchText = e.target.value.toLowerCase();
@@ -45,8 +54,7 @@ searchBar.addEventListener("input", (e) => {
     emptyContacts();
   }
 
-  console.log(allData.length);
-
+  sortArr(allData);
   renderContacts(allData);
 
   if (!allData.length) contactsContainer.style.backgroundColor = "transparent";
@@ -173,8 +181,6 @@ const deleteAllContacts = () => {
   contacts = [];
   allData = [];
   emptyContacts();
-  // contactsContainer.style.backgroundColor =
-  //   allData.length > 0 ? "#222831" : "transparent";
 
   dataLength.innerText = `${allData.length} Contacts`;
 };
