@@ -1,6 +1,11 @@
-// "use strict";
+"use strict";
 // import { contacts } from "./contacts.js";
 import { sortArr } from "./utils.js";
+
+import {
+  contactsContainerBackground,
+  contactsContainerBorder,
+} from "./dynamicStyles.js";
 
 let contacts = [
   {
@@ -59,19 +64,15 @@ dataLength.innerText = `${contacts.length} Contacts`;
 // removes contacts container elements in HTML
 const emptyContacts = () => {
   while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
-  contactsContainer.style.backgroundColor =
-    allData.length > 0 ? "#222831" : "transparent";
-  contactsContainer.style.borderTop = "none";
-  contactsContainer.style.borderBottom = "none";
+  contactsContainerBackground(contactsContainer, allData);
+  contactsContainerBorder(contactsContainer, "none");
 };
 
 // adds contact to the phone book
 const addContact = (data) => {
   contacts.push(data);
   createElements(data);
-  contactsContainer.style.backgroundColor =
-    contacts.length > 0 ? "#222831" : "transparent";
-
+  contactsContainerBackground(contactsContainer, allData);
   dataLength.innerText = `${contacts.length} Contacts`;
 };
 
@@ -92,12 +93,8 @@ searchBar.addEventListener("input", (e) => {
   sortArr(allData);
   renderContacts(allData);
 
-  if (!allData.length) {
-    emptyContacts();
-  } else {
-    contactsContainer.style.borderTop = "1px solid #00adb5";
-    contactsContainer.style.borderBottom = "1px solid #00adb5";
-  }
+  if (!allData.length) emptyContacts();
+  else contactsContainerBorder(contactsContainer, "1px solid #00adb5");
 
   dataLength.innerText = `${allData.length} Contacts`;
 });
@@ -127,6 +124,7 @@ formMenu.addEventListener("submit", (e) => {
     phone: phoneInput.value,
     address: addressInput.value,
   };
+
   addContact(data);
 
   nameInput.value = "";
@@ -223,8 +221,7 @@ const renderContacts = (array) => {
     createElements(data);
   });
 
-  contactsContainer.style.backgroundColor =
-    contacts.length > 0 ? "#222831" : "transparent";
+  contactsContainerBackground(contactsContainer, allData);
 };
 
 renderContacts(allData);
