@@ -1,9 +1,13 @@
 "use strict";
 
-const addContactOpenMenu = document.querySelector("#add-contact-icon");
-const closeMenu = document.querySelector("#close-menu");
-export const formMenu = document.querySelector(".add-contact-menu");
-export const backDrop = document.querySelector("#backdrop");
+import {
+  addContactOpenMenu,
+  backDrop,
+  // closeContactInfoMenu,
+  closeMenu,
+  contactInfoMenu,
+  formMenu,
+} from "./domVariables.js";
 
 export const contactsContainerBackground = (contactsContainer, allData) => {
   contactsContainer.style.backgroundColor =
@@ -11,22 +15,25 @@ export const contactsContainerBackground = (contactsContainer, allData) => {
 };
 
 export const contactsContainerBorder = (contactsContainer, allData) => {
-  // contactsContainer.style.borderTop = styles;
-  // contactsContainer.style.borderBottom = styles;
   contactsContainer.style.borderTop =
     allData.length > 0 ? "1px solid #00adb5" : "none";
   contactsContainer.style.borderBottom =
     allData.length > 0 ? "1px solid #00adb5" : "none";
 };
 
-const showMenu = () => {
-  formMenu.style.display = "flex";
+export const showMenu = (menu) => {
+  menu.style.display = "flex";
   backDrop.className = "backdrop";
 };
 
-export const hideMenu = () => {
-  formMenu.style.display = "none";
+export const hideMenu = (menu) => {
+  menu.style.display = "none";
   backDrop.className = "";
 };
-addContactOpenMenu.addEventListener("click", showMenu);
-closeMenu.addEventListener("click", hideMenu);
+
+addContactOpenMenu.addEventListener("click", () => showMenu(formMenu));
+closeMenu.addEventListener("click", () => hideMenu(formMenu));
+// closeContactInfoMenu.addEventListener("click", () => {
+//   hideMenu(contactInfoMenu);
+//   // while (contactInfoMenu.firstChild) contactInfoMenu.firstChild.remove();
+// });

@@ -102,7 +102,6 @@ h1 {
 
 .contacts-container {
   margin-top: 50px;
-  /* background-color: var(--secondary-color); */
   border-radius: 10px;
   padding: 20px;
   color: var(--primary-color);
@@ -118,10 +117,15 @@ h1 {
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  transition: all 0.3s;
   border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
+.contact-info:hover {
+  background-color: var(--third-color);
+  cursor: pointer;
+  transform: scale(1.01);
+}
 .contact-info img {
   width: 60px;
   height: 60px;
@@ -149,7 +153,7 @@ h1 {
 }
 .contact-info .right {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -158,15 +162,14 @@ h1 {
   width: 25px;
   height: 25px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
-.contact-info:hover {
-  background-color: var(--third-color);
-  cursor: pointer;
-  scale: 1.01;
+.contact-info .right img:hover {
+  transform: scale(1.2);
 }
 
-/* Form  */
+/* Form menu for adding contact  */
 
 .backdrop {
   position: fixed;
@@ -178,7 +181,8 @@ h1 {
   z-index: 10;
 }
 
-.add-contact-menu {
+.add-contact-menu,
+.contact-info-menu {
   min-height: 450px;
   width: 450px;
   position: absolute;
@@ -197,11 +201,13 @@ h1 {
   padding: 30px;
 }
 
-.add-contact-menu h3 {
+.add-contact-menu h3,
+.contact-info-menu h3 {
   color: #b2b500;
 }
 
-.add-contact-menu .x {
+.add-contact-menu .x,
+.contact-info-menu .x {
   position: absolute;
   top: 10px;
   right: 20px;
@@ -212,7 +218,8 @@ h1 {
   font-family: cursive;
 }
 
-.add-contact-menu .x:hover {
+.add-contact-menu .x:hover,
+.contact-info-menu .x:hover {
   color: red;
 }
 
@@ -247,4 +254,29 @@ h1 {
 .add-contact-menu #add-contact-btn:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
+}
+
+/* Contact Info Menu */
+
+.contact-info-menu {
+  /* display: flex; */
+  font-size: 1.3rem;
+}
+
+.contact-info-menu span {
+  color: var(--primary-color);
+  display: inline-block;
+  width: 100px;
+}
+
+.contact-info-menu p {
+  width: 300px;
+  color: white;
+}
+
+.contact-info-menu img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
 }

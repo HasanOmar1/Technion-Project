@@ -5,10 +5,24 @@ import { sortArr } from "./utils.js";
 import {
   contactsContainerBackground,
   contactsContainerBorder,
-  backDrop,
-  formMenu,
   hideMenu,
+  showMenu,
 } from "./cssChanges.js";
+
+import {
+  ageInput,
+  addressInput,
+  contactsContainer,
+  dataLength,
+  deleteAllContactsBtn,
+  emailInput,
+  formMenu,
+  imageInput,
+  nameInput,
+  phoneInput,
+  searchBar,
+  contactInfoMenu,
+} from "./domVariables.js";
 
 let contacts = [
   {
@@ -18,6 +32,7 @@ let contacts = [
     age: 31,
     phone: 1234567,
     address: "USA",
+    email: "John@gmail.com",
   },
   {
     id: 2,
@@ -26,14 +41,16 @@ let contacts = [
     age: 34,
     phone: 7654321,
     address: "Alaska",
+    email: "ZaRock@gmail.com",
   },
   {
     id: 3,
     name: "Asd The Tiger",
     img: "./images/contacts/no-user-image.gif",
-    age: 31,
+    // age: 31,
     phone: 321234,
     address: "There",
+    email: "Lion@hotmail.com",
   },
 ];
 
@@ -41,27 +58,6 @@ sortArr(contacts);
 
 let allData = [];
 allData = [...contacts];
-
-const contactsContainer = document.querySelector(".contacts-container");
-const deleteAllContactsBtn = document.querySelector("#delete-all-contacts");
-const dataLength = document.querySelector("#data-length");
-
-// search bar
-const searchBar = document.querySelector("#search-bar");
-
-// form
-// const addContactOpenMenu = document.querySelector("#add-contact-icon");
-// const formMenu = document.querySelector(".add-contact-menu");
-// const backDrop = document.querySelector("#backdrop");
-// const closeMenu = document.querySelector("#close-menu");
-
-// inputs
-const nameInput = document.querySelector("#name-input");
-const emailInput = document.querySelector("#email-input");
-const phoneInput = document.querySelector("#phone-input");
-const addressInput = document.querySelector("#address-input");
-const ageInput = document.querySelector("#age-input");
-const imageInput = document.querySelector("#image-input");
 
 dataLength.innerText = `${contacts.length} Contacts`;
 
@@ -102,7 +98,6 @@ searchBar.addEventListener("input", (e) => {
   if (!allData.length) emptyContacts();
   else contactsContainerBorder(contactsContainer, allData);
 
-  console.log(`ss`, allData);
   dataLength.innerText = `${allData.length} Contacts`;
 });
 
@@ -138,25 +133,22 @@ formMenu.addEventListener("submit", (e) => {
 
   searchBar.value = "";
 
-  console.log(allData);
-
-  hideMenu();
+  hideMenu(formMenu);
 });
 
+// deletes all contacts from the phone book
 const deleteAllContacts = () => {
   contacts = [];
   allData = [];
   emptyContacts();
-
   dataLength.innerText = `${allData.length} Contacts`;
 };
 
+// deletes one contact from the phone book
 const deleteContactById = (id) => {
-  const deletedContact = allData.filter((data) => id !== data.id);
+  allData = allData.filter((data) => id !== data.id);
   contacts = contacts.filter((data) => id !== data.id);
 
-  console.log(deletedContact);
-  allData = [...deletedContact];
   emptyContacts();
   renderContacts(allData);
 
@@ -168,12 +160,11 @@ const deleteContactById = (id) => {
   } else {
     dataLength.innerText = `${allData.length} Contacts`;
   }
-
-  console.log(allData);
 };
 
 deleteAllContactsBtn.addEventListener("click", deleteAllContacts);
 
+// creates the contact container and children elements in the HTML
 const createElements = (data) => {
   const contactInfo = document.createElement("div");
   contactInfo.className = "contact-info";
@@ -212,24 +203,29 @@ const createElements = (data) => {
   leftSide.append(leftSideImg);
   leftSide.append(nameAndPhoneContainer);
 
+  // info about contact svg
   const contactInfoSvg = document.createElement("img");
   contactInfoSvg.src = "./images/svgs/info-svg.png";
   contactInfoSvg.alt = "contact-info-svg";
   contactInfoSvg.id = `contact-info-${data.id}`;
 
+  contactInfoSvg.addEventListener("click", () => {
+    createContactInfoElements(data);
+    showMenu(contactInfoMenu);
+  });
+
+  // edit contact svg
   const editContact = document.createElement("img");
   editContact.src = "./images/svgs/edit-svg.png";
   editContact.alt = "edit-contact-svg";
   editContact.id = `edit-contact-${data.id}`;
 
+  // delete contact svg
   const deleteContact = document.createElement("img");
   deleteContact.src = "./images/svgs/delete-contact-svg.png";
   deleteContact.alt = "delete-contact-svg";
   deleteContact.id = `delete-contact-${data.id}`;
-
-  deleteContact.addEventListener("click", (e) => {
-    deleteContactById(data.id);
-  });
+  deleteContact.addEventListener("click", (e) => deleteContactById(data.id));
 
   rightSide.append(contactInfoSvg);
   rightSide.append(editContact);
@@ -238,6 +234,7 @@ const createElements = (data) => {
   contactsContainer.append(contactInfo);
 };
 
+// sorts the contacts then renders them (displays them on screen)
 const renderContacts = (array) => {
   sortArr(array);
   array.map((data) => {
@@ -247,3 +244,70 @@ const renderContacts = (array) => {
 };
 
 renderContacts(allData);
+
+const createContactInfoElements = (data) => {
+  //title
+  const contactInfoTitle = document.createElement("h3");
+  contactInfoTitle.innerText = "Contact Name";
+  contactInfoMenu.append(contactInfoTitle);
+
+  // X to close menu
+  const contactInfoCloseMenu = document.createElement("div");
+  contactInfoCloseMenu.innerText = "X";
+  contactInfoCloseMenu.classList = "x";
+  contactInfoCloseMenu.id = "close-contact-info-menu";
+  contactInfoMenu.append(contactInfoCloseMenu);
+
+  // event to close the menu and remove its children
+  contactInfoCloseMenu.addEventListener("click", () => {
+    hideMenu(contactInfoMenu);
+    while (contactInfoMenu.firstChild) contactInfoMenu.firstChild.remove();
+  });
+
+  //name
+  const contactNameSpan = document.createElement("span");
+  contactNameSpan.innerText = `Name: `;
+  const contactName = document.createElement("p");
+  contactName.append(contactNameSpan);
+  contactName.append(data.name);
+
+  // email
+  const contactEmailSpan = document.createElement("span");
+  contactEmailSpan.innerText = `Email: `;
+  const contactEmail = document.createElement("p");
+  contactEmail.append(contactEmailSpan);
+  contactEmail.append(data.email);
+
+  // phone
+  const contactPhoneSpan = document.createElement("span");
+  contactPhoneSpan.innerText = `Phone: `;
+  const contactPhone = document.createElement("p");
+  contactPhone.append(contactPhoneSpan);
+  contactPhone.append(data.phone);
+
+  // address
+  const contactAddressSpan = document.createElement("span");
+  contactAddressSpan.innerText = `Address: `;
+  const contactAddress = document.createElement("p");
+  contactAddress.append(contactAddressSpan);
+  contactAddress.append(data.address);
+
+  // age
+  const contactAgeSpan = document.createElement("span");
+  contactAgeSpan.innerText = `Age: `;
+  const contactAge = document.createElement("p");
+  contactAge.append(contactAgeSpan);
+  contactAge.append(data.age);
+
+  // img
+  const contactImg = document.createElement("img");
+  contactImg.src = data.img;
+  contactImg.alt = data.name;
+
+  contactInfoMenu.append(contactName);
+  if (data.email) contactInfoMenu.append(contactEmail);
+  contactInfoMenu.append(contactPhone);
+  if (data.address) contactInfoMenu.append(contactAddress);
+  if (data.age) contactInfoMenu.append(contactAge);
+  contactInfoMenu.append(contactImg);
+};
