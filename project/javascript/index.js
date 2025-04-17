@@ -119,7 +119,7 @@ formMenu.addEventListener("submit", (e) => {
 
   const data = {
     id: ++counter,
-    name: nameInput.value.trim(),
+    name: nameInput.value[0].toUpperCase() + nameInput.value.slice(1).trim(),
     email: emailInput.value.trim(),
     img:
       imageInput.value.length !== 0
