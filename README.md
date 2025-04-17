@@ -1,1 +1,1 @@
-Technion Javascript course
+Technion JavaScript course
