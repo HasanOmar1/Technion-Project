@@ -53,6 +53,15 @@ let contacts = [
     address: "There",
     email: "Lion@hotmail.com",
   },
+  {
+    id: 4,
+    name: "Car",
+    img: "./images/contacts/car.webp",
+    age: 26,
+    phone: 13123451,
+    address: "Romania",
+    email: "car@gmail.com",
+  },
 ];
 
 sortArr(contacts);
@@ -125,7 +134,6 @@ formMenu.addEventListener("submit", (e) => {
     (data) => nameInput.value.toLowerCase().trim() === data.name
   );
 
-  console.log(nameExists);
   if (nameExists.length > 0) {
     errorMsg.innerText = "Name is already taken, enter new one";
     errorMsg.style.display = "block";
