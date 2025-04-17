@@ -98,7 +98,7 @@ h1 {
   cursor: auto;
 }
 
-/* contacts */
+/* contacts container */
 
 .contacts-container {
   margin-top: 50px;
@@ -169,7 +169,7 @@ h1 {
   transform: scale(1.2);
 }
 
-/* Form menu for adding contact  */
+/* Add Contact Form */
 
 .backdrop {
   position: fixed;
@@ -223,6 +223,11 @@ h1 {
   color: red;
 }
 
+.add-contact-menu .error-msg {
+  color: rgb(240, 32, 32);
+  display: none;
+}
+
 .add-contact-menu label {
   color: var(--primary-color);
   width: 100px;
@@ -259,7 +264,6 @@ h1 {
 /* Contact Info Menu */
 
 .contact-info-menu {
-  /* display: flex; */
   font-size: 1.3rem;
 }
 

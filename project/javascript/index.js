@@ -22,6 +22,7 @@ import {
   phoneInput,
   searchBar,
   contactInfoMenu,
+  errorMsg,
 } from "./domVariables.js";
 
 let contacts = [
@@ -109,31 +110,64 @@ formMenu.addEventListener("submit", (e) => {
 
   const data = {
     id: ++counter,
-    name: nameInput.value,
-    email: emailInput.value,
+    name: nameInput.value.trim(),
+    email: emailInput.value.trim(),
     img:
       imageInput.value.length !== 0
         ? imageInput.value
         : "./images/contacts/no-user-image.gif",
-    age: ageInput.value,
-    phone: phoneInput.value,
-    address: addressInput.value,
+    age: ageInput.value.trim(),
+    phone: phoneInput.value.trim(),
+    address: addressInput.value.trim(),
   };
 
-  emptyContacts();
-  addContact(data);
-  renderContacts(contacts);
+  const nameExists = allData.filter(
+    (data) => nameInput.value.toLowerCase().trim() === data.name
+  );
 
-  nameInput.value = "";
-  emailInput.value = "";
-  phoneInput.value = "";
-  addressInput.value = "";
-  ageInput.value = "";
-  imageInput.value = "";
+  console.log(nameExists);
+  if (nameExists.length > 0) {
+    errorMsg.innerText = "Name is already taken, enter new one";
+    errorMsg.style.display = "block";
+  } else if (
+    nameInput.value.trim().length === 0 ||
+    phoneInput.value.trim().length === 0
+  ) {
+    errorMsg.innerText = "Enter name and phone number!";
+    errorMsg.style.display = "block";
+  } else {
+    errorMsg.innerText = "";
+    errorMsg.style.display = "none";
+    emptyContacts();
+    addContact(data);
+    renderContacts(contacts);
 
-  searchBar.value = "";
+    nameInput.value = "";
+    emailInput.value = "";
+    phoneInput.value = "";
+    addressInput.value = "";
+    ageInput.value = "";
+    imageInput.value = "";
 
-  hideMenu(formMenu);
+    searchBar.value = "";
+
+    hideMenu(formMenu);
+  }
+
+  // emptyContacts();
+  // addContact(data);
+  // renderContacts(contacts);
+
+  // nameInput.value = "";
+  // emailInput.value = "";
+  // phoneInput.value = "";
+  // addressInput.value = "";
+  // ageInput.value = "";
+  // imageInput.value = "";
+
+  // searchBar.value = "";
+
+  // hideMenu(formMenu);
 });
 
 // deletes all contacts from the phone book

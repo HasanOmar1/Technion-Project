@@ -12,6 +12,7 @@ export const addContactOpenMenu = document.querySelector("#add-contact-icon");
 export const formMenu = document.querySelector(".add-contact-menu");
 export const closeMenu = document.querySelector("#close-menu");
 export const backDrop = document.querySelector("#backdrop");
+export const errorMsg = document.querySelector(".error-msg");
 
 // inputs
 export const nameInput = document.querySelector("#name-input");
