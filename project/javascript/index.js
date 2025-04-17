@@ -89,7 +89,7 @@ searchBar.addEventListener("input", (e) => {
     data.name.toLowerCase().includes(searchText)
   );
 
-  if (e.target.value.length != 0) {
+  if (e.target.value.length !== 0) {
     allData = filteredByName;
     emptyContacts();
   } else {
@@ -102,6 +102,7 @@ searchBar.addEventListener("input", (e) => {
   if (!allData.length) emptyContacts();
   else contactsContainerBorder(contactsContainer, allData);
 
+  console.log(`ss`, allData);
   dataLength.innerText = `${allData.length} Contacts`;
 });
 
@@ -116,7 +117,7 @@ formMenu.addEventListener("submit", (e) => {
     name: nameInput.value,
     email: emailInput.value,
     img:
-      imageInput.value.length != 0
+      imageInput.value.length !== 0
         ? imageInput.value
         : "./images/contacts/no-user-image.gif",
     age: ageInput.value,
@@ -126,7 +127,7 @@ formMenu.addEventListener("submit", (e) => {
 
   emptyContacts();
   addContact(data);
-  renderContacts(allData);
+  renderContacts(contacts);
 
   nameInput.value = "";
   emailInput.value = "";
@@ -134,6 +135,8 @@ formMenu.addEventListener("submit", (e) => {
   addressInput.value = "";
   ageInput.value = "";
   imageInput.value = "";
+
+  searchBar.value = "";
 
   console.log(allData);
 
@@ -150,12 +153,23 @@ const deleteAllContacts = () => {
 
 const deleteContactById = (id) => {
   const deletedContact = allData.filter((data) => id !== data.id);
-  contacts = [...deletedContact];
+  contacts = contacts.filter((data) => id !== data.id);
+
+  console.log(deletedContact);
   allData = [...deletedContact];
   emptyContacts();
   renderContacts(allData);
+
+  if (searchBar.value.length === 0) {
+    allData = [...contacts];
+    emptyContacts();
+    renderContacts(allData);
+    dataLength.innerText = `${contacts.length} Contacts`;
+  } else {
+    dataLength.innerText = `${allData.length} Contacts`;
+  }
+
   console.log(allData);
-  dataLength.innerText = `${contacts.length} Contacts`;
 };
 
 deleteAllContactsBtn.addEventListener("click", deleteAllContacts);
