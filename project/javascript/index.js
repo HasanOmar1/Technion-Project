@@ -1,6 +1,6 @@
 "use strict";
 // import { contacts } from "./contacts.js";
-import { sortArr } from "./utils.js";
+import { emptyInputsValues, sortArr } from "./utils.js";
 
 import {
   contactsContainerBackground,
@@ -131,7 +131,7 @@ formMenu.addEventListener("submit", (e) => {
   };
 
   const nameExists = allData.filter(
-    (data) => nameInput.value.toLowerCase().trim() === data.name
+    (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
   );
 
   if (nameExists.length > 0) {
@@ -146,36 +146,15 @@ formMenu.addEventListener("submit", (e) => {
   } else {
     errorMsg.innerText = "";
     errorMsg.style.display = "none";
+
     emptyContacts();
     addContact(data);
     renderContacts(contacts);
-
-    nameInput.value = "";
-    emailInput.value = "";
-    phoneInput.value = "";
-    addressInput.value = "";
-    ageInput.value = "";
-    imageInput.value = "";
+    emptyInputsValues();
 
     searchBar.value = "";
-
     hideMenu(formMenu);
   }
-
-  // emptyContacts();
-  // addContact(data);
-  // renderContacts(contacts);
-
-  // nameInput.value = "";
-  // emailInput.value = "";
-  // phoneInput.value = "";
-  // addressInput.value = "";
-  // ageInput.value = "";
-  // imageInput.value = "";
-
-  // searchBar.value = "";
-
-  // hideMenu(formMenu);
 });
 
 // deletes all contacts from the phone book
@@ -276,17 +255,6 @@ const createElements = (data) => {
   contactsContainer.append(contactInfo);
 };
 
-// sorts the contacts then renders them (displays them on screen)
-const renderContacts = (array) => {
-  sortArr(array);
-  array.map((data) => {
-    createElements(data);
-  });
-  contactsContainerBackground(contactsContainer, allData);
-};
-
-renderContacts(allData);
-
 const createContactInfoElements = (data) => {
   //title
   const contactInfoTitle = document.createElement("h3");
@@ -353,3 +321,14 @@ const createContactInfoElements = (data) => {
   if (data.age) contactInfoMenu.append(contactAge);
   contactInfoMenu.append(contactImg);
 };
+
+// sorts the contacts then renders them (displays them on screen)
+const renderContacts = (array) => {
+  sortArr(array);
+  array.map((data) => {
+    createElements(data);
+  });
+  contactsContainerBackground(contactsContainer, allData);
+};
+
+renderContacts(allData);
