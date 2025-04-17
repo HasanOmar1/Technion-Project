@@ -23,6 +23,3 @@ export const imageInput = document.querySelector("#image-input");
 
 // contact info
 export const contactInfoMenu = document.querySelector(".contact-info-menu");
-// export const closeContactInfoMenu = document.querySelector(
-//   "#close-contact-info-menu"
-// );

@@ -3,9 +3,7 @@
 import {
   addContactOpenMenu,
   backDrop,
-  // closeContactInfoMenu,
   closeMenu,
-  contactInfoMenu,
   formMenu,
 } from "./domVariables.js";
 
@@ -33,7 +31,3 @@ export const hideMenu = (menu) => {
 
 addContactOpenMenu.addEventListener("click", () => showMenu(formMenu));
 closeMenu.addEventListener("click", () => hideMenu(formMenu));
-// closeContactInfoMenu.addEventListener("click", () => {
-//   hideMenu(contactInfoMenu);
-//   // while (contactInfoMenu.firstChild) contactInfoMenu.firstChild.remove();
-// });
