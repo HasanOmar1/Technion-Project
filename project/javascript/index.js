@@ -7,6 +7,7 @@ import {
   contactsContainerBorder,
   backDrop,
   formMenu,
+  hideMenu,
 } from "./cssChanges.js";
 
 let contacts = [
@@ -36,12 +37,13 @@ let contacts = [
   },
 ];
 
+sortArr(contacts);
+
 let allData = [];
 allData = [...contacts];
 
 const contactsContainer = document.querySelector(".contacts-container");
 const deleteAllContactsBtn = document.querySelector("#delete-all-contacts");
-sortArr(allData);
 const dataLength = document.querySelector("#data-length");
 
 // search bar
@@ -67,7 +69,7 @@ dataLength.innerText = `${contacts.length} Contacts`;
 const emptyContacts = () => {
   while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
   contactsContainerBackground(contactsContainer, allData);
-  contactsContainerBorder(contactsContainer, "none");
+  contactsContainerBorder(contactsContainer, allData);
 };
 
 // adds contact to the phone book
@@ -76,7 +78,7 @@ const addContact = (data) => {
   allData.push(data);
 
   contactsContainerBackground(contactsContainer, allData);
-  contactsContainerBorder(contactsContainer, "1px solid #00adb5");
+  contactsContainerBorder(contactsContainer, allData);
 
   dataLength.innerText = `${contacts.length} Contacts`;
 };
@@ -98,16 +100,19 @@ searchBar.addEventListener("input", (e) => {
   renderContacts(allData);
 
   if (!allData.length) emptyContacts();
-  else contactsContainerBorder(contactsContainer, "1px solid #00adb5");
+  else contactsContainerBorder(contactsContainer, allData);
 
   dataLength.innerText = `${allData.length} Contacts`;
 });
+
+// for the contacts ids [to keep them unique]
+let counter = allData.length;
 
 formMenu.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const data = {
-    id: allData.length + 1,
+    id: ++counter,
     name: nameInput.value,
     email: emailInput.value,
     img:
@@ -122,7 +127,6 @@ formMenu.addEventListener("submit", (e) => {
   emptyContacts();
   addContact(data);
   renderContacts(allData);
-  console.log(`after `, allData);
 
   nameInput.value = "";
   emailInput.value = "";
@@ -131,8 +135,9 @@ formMenu.addEventListener("submit", (e) => {
   ageInput.value = "";
   imageInput.value = "";
 
-  formMenu.style.display = "none";
-  backDrop.className = "";
+  console.log(allData);
+
+  hideMenu();
 });
 
 const deleteAllContacts = () => {
@@ -143,12 +148,15 @@ const deleteAllContacts = () => {
   dataLength.innerText = `${allData.length} Contacts`;
 };
 
-// const deleteContactById = (id) => {
-//   const filtered = allData.filter((data) => {
-//     return id !== data.id;
-//   });
-
-// };
+const deleteContactById = (id) => {
+  const deletedContact = allData.filter((data) => id !== data.id);
+  contacts = [...deletedContact];
+  allData = [...deletedContact];
+  emptyContacts();
+  renderContacts(allData);
+  console.log(allData);
+  dataLength.innerText = `${contacts.length} Contacts`;
+};
 
 deleteAllContactsBtn.addEventListener("click", deleteAllContacts);
 
@@ -204,6 +212,10 @@ const createElements = (data) => {
   deleteContact.src = "./images/svgs/delete-contact-svg.png";
   deleteContact.alt = "delete-contact-svg";
   deleteContact.id = `delete-contact-${data.id}`;
+
+  deleteContact.addEventListener("click", (e) => {
+    deleteContactById(data.id);
+  });
 
   rightSide.append(contactInfoSvg);
   rightSide.append(editContact);

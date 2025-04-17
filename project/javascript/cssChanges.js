@@ -10,17 +10,23 @@ export const contactsContainerBackground = (contactsContainer, allData) => {
     allData.length > 0 ? "#222831" : "transparent";
 };
 
-export const contactsContainerBorder = (contactsContainer, styles) => {
-  contactsContainer.style.borderTop = styles;
-  contactsContainer.style.borderBottom = styles;
+export const contactsContainerBorder = (contactsContainer, allData) => {
+  // contactsContainer.style.borderTop = styles;
+  // contactsContainer.style.borderBottom = styles;
+  contactsContainer.style.borderTop =
+    allData.length > 0 ? "1px solid #00adb5" : "none";
+  contactsContainer.style.borderBottom =
+    allData.length > 0 ? "1px solid #00adb5" : "none";
 };
 
-addContactOpenMenu.addEventListener("click", (e) => {
+const showMenu = () => {
   formMenu.style.display = "flex";
   backDrop.className = "backdrop";
-});
+};
 
-closeMenu.addEventListener("click", (e) => {
+export const hideMenu = () => {
   formMenu.style.display = "none";
   backDrop.className = "";
-});
+};
+addContactOpenMenu.addEventListener("click", showMenu);
+closeMenu.addEventListener("click", hideMenu);
