@@ -181,11 +181,11 @@ h1 {
   z-index: 10;
 }
 
-.add-contact-menu,
+form,
 .contact-info-menu {
   min-height: 450px;
   min-width: 450px;
-  position: absolute;
+  position: fixed;
   background-color: #464749;
   display: none;
   flex-direction: column;
@@ -201,12 +201,12 @@ h1 {
   padding: 30px;
 }
 
-.add-contact-menu h3,
+form h3,
 .contact-info-menu h3 {
   color: #b2b500;
 }
 
-.add-contact-menu .x,
+form .x,
 .contact-info-menu .x {
   position: absolute;
   top: 10px;
@@ -218,23 +218,23 @@ h1 {
   font-family: cursive;
 }
 
-.add-contact-menu .x:hover,
+form .x:hover,
 .contact-info-menu .x:hover {
   color: red;
 }
 
-.add-contact-menu .error-msg {
+form .error-msg {
   color: rgb(240, 32, 32);
   display: none;
 }
 
-.add-contact-menu label {
+form label {
   color: var(--primary-color);
   width: 100px;
   display: inline-block;
   font-size: 1.2rem;
 }
-.add-contact-menu input {
+form input {
   width: 200px;
   padding: 5px 10px;
   outline: none;
@@ -242,7 +242,7 @@ h1 {
   border-radius: 5px;
 }
 
-.add-contact-menu #add-contact-btn {
+form #add-contact-btn {
   cursor: pointer;
   padding: 10px 0;
   width: 300px;
@@ -256,7 +256,7 @@ h1 {
   color: white;
 }
 
-.add-contact-menu #add-contact-btn:hover {
+form #add-contact-btn:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }

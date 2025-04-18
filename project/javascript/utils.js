@@ -21,7 +21,7 @@ export const isValidImageSrc = (url) => {
   return regex.test(url);
 };
 
-export const createForm = (form, titleText, btnText) => {
+export const createForm = (form, titleText, btnText, data) => {
   const title = document.createElement("h3");
   title.innerText = titleText;
   form.append(title);
@@ -44,35 +44,43 @@ export const createForm = (form, titleText, btnText) => {
     emptyForm(form);
   });
 
+  console.log(data);
   // name input
   createInputContainer(form, "Name *:", "name-input", "text", "name", {
     maxLength: 20,
     required: true,
+    data: data?.name,
   });
 
   // email input
   createInputContainer(form, "Email :", "email-input", "email", "email", {
     maxLength: 30,
+    data: data?.email,
   });
 
   // phone container
   createInputContainer(form, "Phone *:", "phone-input", "number", "phone", {
     required: true,
+    data: data?.phone,
   });
 
   // address container
   createInputContainer(form, "Address :", "address-input", "text", "address", {
     maxLength: 30,
+    data: data?.address,
   });
 
   // age container
   createInputContainer(form, "Age :", "age-input", "number", "age", {
     min: 1,
     max: 120,
+    data: data?.age,
   });
 
   // image container
-  createInputContainer(form, "Image URL :", "image-input", "text", "image");
+  createInputContainer(form, "Image URL :", "image-input", "text", "image", {
+    data: data?.img,
+  });
 
   const submitBtn = document.createElement("button");
   submitBtn.innerText = btnText;
@@ -92,7 +100,7 @@ const createInputContainer = (
 ) => {
   // container
 
-  const { maxLength, required, min, max } = optional;
+  const { maxLength, required, min, max, data } = optional;
 
   const container = document.createElement("div");
   form.append(container);
@@ -108,6 +116,7 @@ const createInputContainer = (
   input.type = inputType;
   input.name = inputName;
   input.id = labelFor;
+  input.value = data ?? "";
 
   if (maxLength !== undefined) input.maxLength = maxLength;
   if (required !== undefined) input.required = required;

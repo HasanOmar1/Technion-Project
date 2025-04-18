@@ -4,7 +4,7 @@ import {
   // addContactOpenMenu,
   backDrop,
   // closeMenu,
-  // formMenu,
+  // addFormMenu,
 } from "./domVariables.js";
 
 export const contactsContainerBackground = (contactsContainer, allData) => {
@@ -29,5 +29,5 @@ export const hideMenu = (menu) => {
   backDrop.className = "";
 };
 
-// addContactOpenMenu.addEventListener("click", () => showMenu(formMenu));
-// closeMenu.addEventListener("click", () => hideMenu(formMenu));
+// addContactOpenMenu.addEventListener("click", () => showMenu(addFormMenu));
+// closeMenu.addEventListener("click", () => hideMenu(addFormMenu));

@@ -1,6 +1,6 @@
 // "use strict";
 
-// import { addContactOpenMenu, closeMenu, formMenu } from "./domVariables.js";
+// import { addContactOpenMenu, closeMenu, addFormMenu } from "./domVariables.js";
 
-// addContactOpenMenu.addEventListener("click", () => showMenu(formMenu));
-// closeMenu.addEventListener("click", () => hideMenu(formMenu));
+// addContactOpenMenu.addEventListener("click", () => showMenu(addFormMenu));
+// closeMenu.addEventListener("click", () => hideMenu(addFormMenu));

@@ -19,17 +19,18 @@ import {
   contactsContainer,
   dataLength,
   deleteAllContactsBtn,
-  formMenu,
+  addFormMenu,
   searchBar,
   contactInfoMenu,
   addContactOpenMenu,
+  updateFormMenu,
 } from "./domVariables.js";
 
 let contacts = [
   {
     id: 1,
     name: "John Cena",
-    img: "./images/contacts/john-cena.jpg",
+    img: "https://i.postimg.cc/k5cw7CQR/john-cena.jpg",
     age: 31,
     phone: "050456789",
     address: "USA",
@@ -38,7 +39,7 @@ let contacts = [
   {
     id: 2,
     name: "The Rock",
-    img: "./images/contacts/the-rock.jpg",
+    img: "https://i.postimg.cc/bv83Xrtj/the-rock.jpg",
     age: 34,
     phone: "05245678910",
     address: "Alaska",
@@ -47,7 +48,7 @@ let contacts = [
   {
     id: 3,
     name: "Asd The Tiger",
-    // img: "./images/contacts/no-user-image.gif",
+    // img: "https://i.postimg.cc/HkbBPXj2/no-user-image.gif",
     // age: 31,
     phone: "0546543210",
     address: "Ze Jungle",
@@ -56,7 +57,7 @@ let contacts = [
   {
     id: 4,
     name: "Car",
-    img: "./images/contacts/car.webp",
+    img: "https://i.postimg.cc/3JstBnrN/car.webp",
     age: 26,
     phone: "05865343210",
     address: "Romania",
@@ -114,7 +115,8 @@ searchBar.addEventListener("input", (e) => {
 // for the contacts ids [to keep them unique]
 let counter = allData.length;
 
-formMenu.addEventListener("submit", (e) => {
+// add contact form
+addFormMenu.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const errorMsg = document.querySelector(".error-msg");
@@ -133,7 +135,7 @@ formMenu.addEventListener("submit", (e) => {
     img:
       imageInput.value.trim().length !== 0
         ? imageInput.value
-        : "./images/contacts/no-user-image.gif",
+        : "https://i.postimg.cc/HkbBPXj2/no-user-image.gif",
     age: ageInput.value.trim(),
     phone: phoneInput.value.trim(),
     address: addressInput.value.trim(),
@@ -168,11 +170,25 @@ formMenu.addEventListener("submit", (e) => {
     emptyContacts();
     addContact(data);
     renderContacts(contacts);
-    emptyForm(formMenu);
+    emptyForm(addFormMenu);
 
     searchBar.value = "";
-    hideMenu(formMenu);
+    hideMenu(addFormMenu);
   }
+});
+
+// update contact form
+updateFormMenu.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const errorMsg = document.querySelector(".error-msg");
+
+  const nameInput = document.querySelector("#name-input");
+  const emailInput = document.querySelector("#email-input");
+  const phoneInput = document.querySelector("#phone-input");
+  const addressInput = document.querySelector("#address-input");
+  const ageInput = document.querySelector("#age-input");
+  const imageInput = document.querySelector("#image-input");
 });
 
 // deletes all contacts from the phone book
@@ -218,7 +234,8 @@ const createElements = (data) => {
   contactInfo.append(rightSide);
 
   const leftSideImg = document.createElement("img");
-  leftSideImg.src = data.img ?? "./images/contacts/no-user-image.gif";
+  leftSideImg.src =
+    data.img ?? "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
   leftSideImg.alt = data.name;
 
   const nameAndPhoneContainer = document.createElement("div");
@@ -258,13 +275,18 @@ const createElements = (data) => {
   editContact.src = "./images/svgs/edit-svg.png";
   editContact.alt = "edit-contact-svg";
   editContact.id = `edit-contact-${data.id}`;
+  editContact.addEventListener("click", () => {
+    showMenu(updateFormMenu);
+
+    createForm(updateFormMenu, "Update Contact Menu", "Save", data);
+  });
 
   // delete contact svg
   const deleteContact = document.createElement("img");
   deleteContact.src = "./images/svgs/delete-contact-svg.png";
   deleteContact.alt = "delete-contact-svg";
   deleteContact.id = `delete-contact-${data.id}`;
-  deleteContact.addEventListener("click", (e) => deleteContactById(data.id));
+  deleteContact.addEventListener("click", () => deleteContactById(data.id));
 
   rightSide.append(contactInfoSvg);
   rightSide.append(editContact);
@@ -329,7 +351,8 @@ const createContactInfoElements = (data) => {
 
   // img
   const contactImg = document.createElement("img");
-  contactImg.src = data.img ?? "./images/contacts/no-user-image.gif";
+  contactImg.src =
+    data.img ?? "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
   contactImg.alt = data.name;
 
   contactInfoMenu.append(contactName);
@@ -352,6 +375,6 @@ const renderContacts = (array) => {
 renderContacts(allData);
 
 addContactOpenMenu.addEventListener("click", () => {
-  showMenu(formMenu);
-  createForm(formMenu, "Add Contact Menu", "Add");
+  showMenu(addFormMenu);
+  createForm(addFormMenu, "Add Contact Menu", "Add");
 });
