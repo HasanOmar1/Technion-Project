@@ -1,6 +1,7 @@
 "use strict";
 // import { contacts } from "./contacts.js";
 import {
+  addOrUpdateForm,
   createForm,
   emptyForm,
   isValidImageSrc,
@@ -73,14 +74,14 @@ allData = [...contacts];
 dataLength.innerText = `${contacts.length} Contacts`;
 
 // removes contacts container elements in HTML and BG + border styles
-const emptyContacts = () => {
+export const emptyContacts = () => {
   while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
   contactsContainerBackground(contactsContainer, allData);
   contactsContainerBorder(contactsContainer, allData);
 };
 
 // adds contact to the phone book
-const addContact = (data) => {
+export const addContact = (data) => {
   contacts.push(data);
   allData.push(data);
 
@@ -141,40 +142,54 @@ addFormMenu.addEventListener("submit", (e) => {
     address: addressInput.value.trim(),
   };
 
-  const nameExists = contacts.filter(
-    (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
+  addOrUpdateForm(
+    contacts,
+    nameInput,
+    data,
+    errorMsg,
+    phoneInput,
+    imageInput,
+    false,
+    addFormMenu,
+    searchBar,
+    ageInput,
+    addressInput,
+    emailInput
   );
+  // const nameExists = contacts.filter(
+  //   (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
+  // );
 
-  if (nameExists.length > 0) {
-    errorMsg.innerText = "Name is already taken, enter new one";
-    errorMsg.style.display = "block";
-  } else if (
-    nameInput.value.trim().length === 0 ||
-    phoneInput.value.trim().length === 0
-  ) {
-    errorMsg.innerText = "Enter name and phone number!";
-    errorMsg.style.display = "block";
-  } else if (!isValidPhoneNumber(phoneInput.value.trim())) {
-    errorMsg.innerText = "Enter a valid phone number! (9-11 numbers)";
-    errorMsg.style.display = "block";
-  } else if (
-    imageInput.value.trim().length !== 0 &&
-    !isValidImageSrc(imageInput.value.trim())
-  ) {
-    errorMsg.innerText = "Enter a valid image URL";
-    errorMsg.style.display = "block";
-  } else {
-    errorMsg.innerText = "";
-    errorMsg.style.display = "none";
+  // if (nameExists.length > 0) {
+  //   errorMsg.innerText = "Name is already taken, enter new one";
+  //   errorMsg.style.display = "block";
+  // } else if (
+  //   nameInput.value.trim().length === 0 ||
+  //   phoneInput.value.trim().length === 0
+  // ) {
+  //   errorMsg.innerText = "Enter name and phone number!";
+  //   errorMsg.style.display = "block";
+  // } else if (!isValidPhoneNumber(phoneInput.value.trim())) {
+  //   errorMsg.innerText = "Enter a valid phone number! (9-11 numbers)";
+  //   errorMsg.style.display = "block";
+  // } else if (
+  //   imageInput.value.trim().length !== 0 &&
+  //   !isValidImageSrc(imageInput.value.trim())
+  // ) {
+  //   errorMsg.innerText = "Enter a valid image URL";
+  //   errorMsg.style.display = "block";
+  // } else {
+  //   errorMsg.innerText = "";
+  //   errorMsg.style.display = "none";
 
-    emptyContacts();
-    addContact(data);
-    renderContacts(contacts);
-    emptyForm(addFormMenu);
+  //   emptyContacts();
+  //   addContact(data);
+  //   renderContacts(contacts);
+  //   emptyForm(addFormMenu);
 
-    searchBar.value = "";
-    hideMenu(addFormMenu);
-  }
+  //   searchBar.value = "";
+  //   hideMenu(addFormMenu);
+  // }
 });
 
 // update contact form
@@ -193,50 +208,64 @@ updateFormMenu.addEventListener("submit", (e) => {
   const currentData = allData.filter((data) => data.id === currentContact.id);
   const data = currentData[0];
 
-  const nameExists = contacts.filter(
-    (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
+  addOrUpdateForm(
+    contacts,
+    nameInput,
+    data,
+    errorMsg,
+    phoneInput,
+    imageInput,
+    true,
+    updateFormMenu,
+    searchBar,
+    ageInput,
+    addressInput,
+    emailInput
   );
+  // const nameExists = contacts.filter(
+  //   (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
+  // );
 
-  if (nameExists.length > 0 && data.name !== nameInput.value.trim()) {
-    errorMsg.innerText = "Name is already taken, enter new one";
-    errorMsg.style.display = "block";
-  } else if (
-    nameInput.value.trim().length === 0 ||
-    phoneInput.value.trim().length === 0
-  ) {
-    errorMsg.innerText = "Enter name and phone number!";
-    errorMsg.style.display = "block";
-  } else if (!isValidPhoneNumber(phoneInput.value.trim())) {
-    errorMsg.innerText = "Enter a valid phone number! (9-11 numbers)";
-    errorMsg.style.display = "block";
-  } else if (
-    imageInput.value.trim().length !== 0 &&
-    !isValidImageSrc(imageInput.value.trim())
-  ) {
-    errorMsg.innerText = "Enter a valid image URL";
-    errorMsg.style.display = "block";
-  } else {
-    errorMsg.innerText = "";
-    errorMsg.style.display = "none";
+  // if (nameExists.length > 0 && data.name !== nameInput.value.trim()) {
+  //   errorMsg.innerText = "Name is already taken, enter new one";
+  //   errorMsg.style.display = "block";
+  // } else if (
+  //   nameInput.value.trim().length === 0 ||
+  //   phoneInput.value.trim().length === 0
+  // ) {
+  //   errorMsg.innerText = "Enter name and phone number!";
+  //   errorMsg.style.display = "block";
+  // } else if (!isValidPhoneNumber(phoneInput.value.trim())) {
+  //   errorMsg.innerText = "Enter a valid phone number! (9-11 numbers)";
+  //   errorMsg.style.display = "block";
+  // } else if (
+  //   imageInput.value.trim().length !== 0 &&
+  //   !isValidImageSrc(imageInput.value.trim())
+  // ) {
+  //   errorMsg.innerText = "Enter a valid image URL";
+  //   errorMsg.style.display = "block";
+  // } else {
+  //   errorMsg.innerText = "";
+  //   errorMsg.style.display = "none";
 
-    data.name =
-      nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim();
-    data.email = emailInput.value.trim();
-    data.img =
-      imageInput.value.trim().length !== 0
-        ? imageInput.value
-        : "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
-    data.age = ageInput.value.trim();
-    data.phone = phoneInput.value.trim();
-    data.address = addressInput.value.trim();
+  //   data.name =
+  //     nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim();
+  //   data.email = emailInput.value.trim();
+  //   data.img =
+  //     imageInput.value.trim().length !== 0
+  //       ? imageInput.value
+  //       : "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
+  //   data.age = ageInput.value.trim();
+  //   data.phone = phoneInput.value.trim();
+  //   data.address = addressInput.value.trim();
 
-    emptyContacts();
-    renderContacts(contacts);
-    emptyForm(updateFormMenu);
-    hideMenu(updateFormMenu);
+  //   emptyContacts();
+  //   renderContacts(contacts);
+  //   emptyForm(updateFormMenu);
+  //   hideMenu(updateFormMenu);
 
-    searchBar.value = "";
-  }
+  //   searchBar.value = "";
+  // }
 });
 
 // deletes all contacts from the phone book
@@ -420,7 +449,7 @@ const createContactInfoElements = (data) => {
 };
 
 // sorts the contacts then renders them (displays them on screen)
-const renderContacts = (array) => {
+export const renderContacts = (array) => {
   sortArr(array);
   array.map((data) => {
     createElements(data);
