@@ -112,6 +112,7 @@ h1 {
 /* contacts container */
 
 .contacts-container {
+  background-color: var(--secondary-color);
   margin-top: 50px;
   border-radius: 10px;
   padding: 20px;

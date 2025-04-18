@@ -1,10 +1,6 @@
 "use strict";
 
-import {
-  contactsContainerBackground,
-  contactsContainerBorder,
-  hideMenu,
-} from "./cssChanges.js";
+import { hideMenu } from "./cssChanges.js";
 import { addContact, renderContacts } from "./index.js";
 
 // sorts the contacts alphabetically
@@ -139,10 +135,8 @@ const createInputContainer = (
   container.append(input);
 };
 
-export const emptyContacts = (contactsContainer, allData) => {
+export const emptyContacts = (contactsContainer) => {
   while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
-  contactsContainerBackground(contactsContainer, allData);
-  contactsContainerBorder(contactsContainer, allData);
 };
 
 export const emptyForm = (form) => {
@@ -208,7 +202,7 @@ export const addOrUpdateForm = (
       data.address = addressInput.value.trim();
     }
 
-    emptyContacts(contactsContainer, allData);
+    utils.emptyContacts(contactsContainer, allData);
     if (!isUpdating) addContact(contactData);
     renderContacts(contacts);
     emptyForm(form);
@@ -227,4 +221,10 @@ export const noDataText = (contactsContainer) => {
 
   noDataContainer.append(text);
   contactsContainer.append(noDataContainer);
+};
+
+export const contactsText = (contactsContainer) => {
+  const text = document.createElement("h2");
+  text.innerText = "Contacts";
+  contactsContainer.append(text);
 };
