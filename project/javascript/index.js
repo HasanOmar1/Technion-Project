@@ -139,7 +139,7 @@ formMenu.addEventListener("submit", (e) => {
     address: addressInput.value.trim(),
   };
 
-  const nameExists = allData.filter(
+  const nameExists = contacts.filter(
     (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
   );
 
