@@ -21,7 +21,14 @@ export const isValidImageSrc = (url) => {
   return regex.test(url);
 };
 
-export const createForm = (form, titleText, btnText, data) => {
+export const createForm = (
+  form,
+  titleText,
+  btnText,
+  data,
+  isUpdating,
+  currentContact
+) => {
   const title = document.createElement("h3");
   title.innerText = titleText;
   form.append(title);
@@ -42,9 +49,12 @@ export const createForm = (form, titleText, btnText, data) => {
   xToCloseMenu.addEventListener("click", () => {
     hideMenu(form);
     emptyForm(form);
+    if (isUpdating) {
+      currentContact = {};
+      console.log(currentContact);
+    }
   });
 
-  console.log(data);
   // name input
   createInputContainer(form, "Name *:", "name-input", "text", "name", {
     maxLength: 20,
@@ -84,7 +94,7 @@ export const createForm = (form, titleText, btnText, data) => {
 
   const submitBtn = document.createElement("button");
   submitBtn.innerText = btnText;
-  submitBtn.id = "add-contact-btn";
+  submitBtn.id = isUpdating ? "update-contact-btn" : "add-contact-btn";
 
   form.append(submitBtn);
 };

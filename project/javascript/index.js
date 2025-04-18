@@ -189,6 +189,54 @@ updateFormMenu.addEventListener("submit", (e) => {
   const addressInput = document.querySelector("#address-input");
   const ageInput = document.querySelector("#age-input");
   const imageInput = document.querySelector("#image-input");
+
+  const currentData = allData.filter((data) => data.id === currentContact.id);
+  const data = currentData[0];
+
+  const nameExists = contacts.filter(
+    (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
+  );
+
+  if (nameExists.length > 0 && data.name !== nameInput.value.trim()) {
+    errorMsg.innerText = "Name is already taken, enter new one";
+    errorMsg.style.display = "block";
+  } else if (
+    nameInput.value.trim().length === 0 ||
+    phoneInput.value.trim().length === 0
+  ) {
+    errorMsg.innerText = "Enter name and phone number!";
+    errorMsg.style.display = "block";
+  } else if (!isValidPhoneNumber(phoneInput.value.trim())) {
+    errorMsg.innerText = "Enter a valid phone number! (9-11 numbers)";
+    errorMsg.style.display = "block";
+  } else if (
+    imageInput.value.trim().length !== 0 &&
+    !isValidImageSrc(imageInput.value.trim())
+  ) {
+    errorMsg.innerText = "Enter a valid image URL";
+    errorMsg.style.display = "block";
+  } else {
+    errorMsg.innerText = "";
+    errorMsg.style.display = "none";
+
+    data.name =
+      nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim();
+    data.email = emailInput.value.trim();
+    data.img =
+      imageInput.value.trim().length !== 0
+        ? imageInput.value
+        : "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
+    data.age = ageInput.value.trim();
+    data.phone = phoneInput.value.trim();
+    data.address = addressInput.value.trim();
+
+    emptyContacts();
+    renderContacts(contacts);
+    emptyForm(updateFormMenu);
+    hideMenu(updateFormMenu);
+
+    searchBar.value = "";
+  }
 });
 
 // deletes all contacts from the phone book
@@ -219,6 +267,7 @@ const deleteContactById = (id) => {
 
 deleteAllContactsBtn.addEventListener("click", deleteAllContacts);
 
+let currentContact = {};
 // creates the contact container and children elements in the HTML
 const createElements = (data) => {
   const contactInfo = document.createElement("div");
@@ -276,9 +325,16 @@ const createElements = (data) => {
   editContact.alt = "edit-contact-svg";
   editContact.id = `edit-contact-${data.id}`;
   editContact.addEventListener("click", () => {
+    currentContact = data;
     showMenu(updateFormMenu);
-
-    createForm(updateFormMenu, "Update Contact Menu", "Save", data);
+    createForm(
+      updateFormMenu,
+      "Update Contact Menu",
+      "Save",
+      data,
+      true,
+      currentContact
+    );
   });
 
   // delete contact svg
@@ -376,5 +432,5 @@ renderContacts(allData);
 
 addContactOpenMenu.addEventListener("click", () => {
   showMenu(addFormMenu);
-  createForm(addFormMenu, "Add Contact Menu", "Add");
+  createForm(addFormMenu, "Add Contact Menu", "Add", false);
 });

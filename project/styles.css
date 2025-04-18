@@ -242,7 +242,8 @@ form input {
   border-radius: 5px;
 }
 
-form #add-contact-btn {
+form #add-contact-btn,
+form #update-contact-btn {
   cursor: pointer;
   padding: 10px 0;
   width: 300px;
