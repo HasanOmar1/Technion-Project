@@ -3,15 +3,16 @@
 import { backDrop } from "./domVariables.js";
 
 export const contactsContainerBackground = (contactsContainer, allData) => {
-  contactsContainer.style.backgroundColor =
-    allData.length > 0 ? "#222831" : "transparent";
+  // contactsContainer.style.backgroundColor =
+  //   allData.length > 0 ? "#222831" : "transparent";
+  contactsContainer.style.backgroundColor = "#222831";
 };
 
 export const contactsContainerBorder = (contactsContainer, allData) => {
-  contactsContainer.style.borderTop =
-    allData.length > 0 ? "1px solid #00adb5" : "none";
-  contactsContainer.style.borderBottom =
-    allData.length > 0 ? "1px solid #00adb5" : "none";
+  // contactsContainer.style.borderTop =
+  //   allData.length > 0 ? "1px solid #00adb5" : "none";
+  // contactsContainer.style.borderBottom =
+  //   allData.length > 0 ? "1px solid #00adb5" : "none";
 };
 
 export const showMenu = (menu) => {

@@ -4,6 +4,7 @@ import {
   addOrUpdateForm,
   createForm,
   emptyContacts,
+  noDataText,
   sortArr,
 } from "./utils.js";
 
@@ -60,8 +61,12 @@ searchBar.addEventListener("input", (e) => {
 
   renderContacts(allData);
 
-  if (!allData.length) emptyContacts(contactsContainer, allData);
-  else contactsContainerBorder(contactsContainer, allData);
+  if (!allData.length) {
+    emptyContacts(contactsContainer, allData);
+    noDataText(contactsContainer);
+  } else contactsContainerBorder(contactsContainer, allData);
+
+  console.log(allData);
 
   dataLength.innerText = `${allData.length} Contacts`;
 });
@@ -150,6 +155,7 @@ const deleteAllContacts = () => {
   contacts = [];
   allData = [];
   emptyContacts(contactsContainer, allData);
+  noDataText(contactsContainer);
   dataLength.innerText = `${allData.length} Contacts`;
 };
 
@@ -169,6 +175,7 @@ const deleteContactById = (id) => {
   } else {
     dataLength.innerText = `${allData.length} Contacts`;
   }
+  if (!allData.length) noDataText(contactsContainer);
 };
 
 deleteAllContactsBtn.addEventListener("click", deleteAllContacts);

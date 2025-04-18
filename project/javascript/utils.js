@@ -59,39 +59,39 @@ export const createForm = (
     }
   });
 
-  // name input
+  // name input container
   createInputContainer(form, "Name *:", "name-input", "text", "name", {
     maxLength: 20,
     required: true,
     data: data?.name,
   });
 
-  // email input
+  // email input container
   createInputContainer(form, "Email :", "email-input", "email", "email", {
     maxLength: 30,
     data: data?.email,
   });
 
-  // phone container
+  // phone input container
   createInputContainer(form, "Phone *:", "phone-input", "number", "phone", {
     required: true,
     data: data?.phone,
   });
 
-  // address container
+  // address input container
   createInputContainer(form, "Address :", "address-input", "text", "address", {
     maxLength: 30,
     data: data?.address,
   });
 
-  // age container
+  // age input container
   createInputContainer(form, "Age :", "age-input", "number", "age", {
     min: 1,
     max: 120,
     data: data?.age,
   });
 
-  // image container
+  // image input container
   createInputContainer(form, "Image URL :", "image-input", "text", "image", {
     data: data?.img,
   });
@@ -216,4 +216,15 @@ export const addOrUpdateForm = (
 
     searchBar.value = "";
   }
+};
+
+export const noDataText = (contactsContainer) => {
+  const noDataContainer = document.createElement("div");
+  noDataContainer.classList = "no-contacts-container";
+
+  const text = document.createElement("h2");
+  text.innerText = "No Contacts Found";
+
+  noDataContainer.append(text);
+  contactsContainer.append(noDataContainer);
 };
