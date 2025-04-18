@@ -5,7 +5,7 @@ import {
   contactsContainerBorder,
   hideMenu,
 } from "./cssChanges.js";
-import { addContact, emptyContacts, renderContacts } from "./index.js";
+import { addContact, renderContacts } from "./index.js";
 
 // sorts the contacts alphabetically
 export const sortArr = (arr) => {
@@ -139,6 +139,12 @@ const createInputContainer = (
   container.append(input);
 };
 
+export const emptyContacts = (contactsContainer, allData) => {
+  while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
+  contactsContainerBackground(contactsContainer, allData);
+  contactsContainerBorder(contactsContainer, allData);
+};
+
 export const emptyForm = (form) => {
   while (form.firstChild) form.firstChild.remove();
 };
@@ -153,6 +159,8 @@ export const addOrUpdateForm = (
   form,
   searchBar,
   contactData,
+  allData,
+  contactsContainer,
   data,
   ageInput,
   addressInput,
@@ -181,7 +189,7 @@ export const addOrUpdateForm = (
     imageInput.value.trim().length !== 0 &&
     !isValidImageSrc(imageInput.value.trim())
   ) {
-    errorMsg.innerText = "Enter a valid image URL";
+    errorMsg.innerText = "Enter a valid image URL or keep it empty";
     errorMsg.style.display = "block";
   } else {
     errorMsg.innerText = "";
@@ -200,7 +208,7 @@ export const addOrUpdateForm = (
       data.address = addressInput.value.trim();
     }
 
-    emptyContacts();
+    emptyContacts(contactsContainer, allData);
     if (!isUpdating) addContact(contactData);
     renderContacts(contacts);
     emptyForm(form);
@@ -209,9 +217,3 @@ export const addOrUpdateForm = (
     searchBar.value = "";
   }
 };
-
-// export const emptyContacts = (contactsContainer, allData) => {
-//   while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
-//   contactsContainerBackground(contactsContainer, allData);
-//   contactsContainerBorder(contactsContainer, allData);
-// };

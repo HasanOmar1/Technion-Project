@@ -1,11 +1,9 @@
 "use strict";
-// import { contacts } from "./contacts.js";
+import { getContacts } from "./contacts.js";
 import {
   addOrUpdateForm,
   createForm,
-  emptyForm,
-  isValidImageSrc,
-  isValidPhoneNumber,
+  emptyContacts,
   sortArr,
 } from "./utils.js";
 
@@ -27,58 +25,13 @@ import {
   updateFormMenu,
 } from "./domVariables.js";
 
-let contacts = [
-  {
-    id: 1,
-    name: "John Cena",
-    img: "https://i.postimg.cc/k5cw7CQR/john-cena.jpg",
-    age: 31,
-    phone: "050456789",
-    address: "USA",
-    email: "John@gmail.com",
-  },
-  {
-    id: 2,
-    name: "The Rock",
-    img: "https://i.postimg.cc/bv83Xrtj/the-rock.jpg",
-    age: 34,
-    phone: "05245678910",
-    address: "Alaska",
-    email: "ZaRock@gmail.com",
-  },
-  {
-    id: 3,
-    name: "Asd The Tiger",
-    // img: "https://i.postimg.cc/HkbBPXj2/no-user-image.gif",
-    // age: 31,
-    phone: "0546543210",
-    address: "Ze Jungle",
-    email: "Lion@hotmail.com",
-  },
-  {
-    id: 4,
-    name: "Car",
-    img: "https://i.postimg.cc/3JstBnrN/car.webp",
-    age: 26,
-    phone: "05865343210",
-    address: "Romania",
-    email: "car@gmail.com",
-  },
-];
-
+let contacts = getContacts();
 sortArr(contacts);
 
 let allData = [];
 allData = [...contacts];
 
 dataLength.innerText = `${contacts.length} Contacts`;
-
-// removes contacts container elements in HTML and BG + border styles
-export const emptyContacts = () => {
-  while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
-  contactsContainerBackground(contactsContainer, allData);
-  contactsContainerBorder(contactsContainer, allData);
-};
 
 // adds contact to the phone book
 export const addContact = (data) => {
@@ -99,15 +52,15 @@ searchBar.addEventListener("input", (e) => {
 
   if (e.target.value.length !== 0) {
     allData = filteredByName;
-    emptyContacts();
+    emptyContacts(contactsContainer, allData);
   } else {
     allData = [...contacts];
-    emptyContacts();
+    emptyContacts(contactsContainer, allData);
   }
 
   renderContacts(allData);
 
-  if (!allData.length) emptyContacts();
+  if (!allData.length) emptyContacts(contactsContainer, allData);
   else contactsContainerBorder(contactsContainer, allData);
 
   dataLength.innerText = `${allData.length} Contacts`;
@@ -151,7 +104,9 @@ addFormMenu.addEventListener("submit", (e) => {
     false,
     addFormMenu,
     searchBar,
-    contactData
+    contactData,
+    allData,
+    contactsContainer
   );
 });
 
@@ -181,6 +136,8 @@ updateFormMenu.addEventListener("submit", (e) => {
     updateFormMenu,
     searchBar,
     null,
+    allData,
+    contactsContainer,
     data,
     ageInput,
     addressInput,
@@ -192,7 +149,7 @@ updateFormMenu.addEventListener("submit", (e) => {
 const deleteAllContacts = () => {
   contacts = [];
   allData = [];
-  emptyContacts();
+  emptyContacts(contactsContainer, allData);
   dataLength.innerText = `${allData.length} Contacts`;
 };
 
@@ -201,12 +158,12 @@ const deleteContactById = (id) => {
   allData = allData.filter((data) => id !== data.id);
   contacts = contacts.filter((data) => id !== data.id);
 
-  emptyContacts();
+  emptyContacts(contactsContainer, allData);
   renderContacts(allData);
 
   if (searchBar.value.length === 0) {
     allData = [...contacts];
-    emptyContacts();
+    emptyContacts(contactsContainer, allData);
     renderContacts(allData);
     dataLength.innerText = `${contacts.length} Contacts`;
   } else {
@@ -216,11 +173,29 @@ const deleteContactById = (id) => {
 
 deleteAllContactsBtn.addEventListener("click", deleteAllContacts);
 
+// to store the current contact info when clicking on one
 let currentContact = {};
+
 // creates the contact container and children elements in the HTML
 const createElements = (data) => {
   const contactInfo = document.createElement("div");
   contactInfo.className = "contact-info";
+
+  contactInfo.addEventListener("mouseover", () => {
+    contactInfo.style.backgroundColor = "#393e46";
+    contactInfo.style.cursor = "pointer";
+    contactInfo.style.transform = "scale(1.01)";
+  });
+
+  contactInfo.addEventListener("mouseout", () => {
+    contactInfo.style.backgroundColor = "rgb(34, 40, 49)";
+    contactInfo.style.transform = "scale(1)";
+  });
+
+  contactInfo.addEventListener("click", () => {
+    createContactInfoElements(data);
+    showMenu(contactInfoMenu);
+  });
 
   const leftSide = document.createElement("div");
   leftSide.className = "left";
@@ -263,17 +238,13 @@ const createElements = (data) => {
   contactInfoSvg.alt = "contact-info-svg";
   contactInfoSvg.id = `contact-info-${data.id}`;
 
-  contactInfoSvg.addEventListener("click", () => {
-    createContactInfoElements(data);
-    showMenu(contactInfoMenu);
-  });
-
   // edit contact svg
   const editContact = document.createElement("img");
   editContact.src = "./images/svgs/edit-svg.png";
   editContact.alt = "edit-contact-svg";
   editContact.id = `edit-contact-${data.id}`;
-  editContact.addEventListener("click", () => {
+  editContact.addEventListener("click", (e) => {
+    e.stopPropagation();
     currentContact = data;
     showMenu(updateFormMenu);
     createForm(
@@ -291,7 +262,10 @@ const createElements = (data) => {
   deleteContact.src = "./images/svgs/delete-contact-svg.png";
   deleteContact.alt = "delete-contact-svg";
   deleteContact.id = `delete-contact-${data.id}`;
-  deleteContact.addEventListener("click", () => deleteContactById(data.id));
+  deleteContact.addEventListener("click", (e) => {
+    e.stopPropagation();
+    deleteContactById(data.id);
+  });
 
   rightSide.append(contactInfoSvg);
   rightSide.append(editContact);

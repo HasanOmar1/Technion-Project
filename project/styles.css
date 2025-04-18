@@ -122,9 +122,9 @@ h1 {
 }
 
 .contact-info:hover {
-  background-color: var(--third-color);
+  /* background-color: var(--third-color);
   cursor: pointer;
-  transform: scale(1.01);
+  transform: scale(1.01); */
 }
 .contact-info img {
   width: 60px;
@@ -163,6 +163,7 @@ h1 {
   height: 25px;
   cursor: pointer;
   transition: all 0.2s;
+  z-index: 999;
 }
 
 .contact-info .right img:hover {
