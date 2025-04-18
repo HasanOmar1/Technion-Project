@@ -146,13 +146,14 @@ export const emptyForm = (form) => {
 export const addOrUpdateForm = (
   contacts,
   nameInput,
-  data,
   errorMsg,
   phoneInput,
   imageInput,
   isUpdating,
   form,
   searchBar,
+  contactData,
+  data,
   ageInput,
   addressInput,
   emailInput
@@ -162,13 +163,9 @@ export const addOrUpdateForm = (
   );
 
   if (
-    isUpdating &&
     nameExists.length > 0 &&
-    data.name !== nameInput.value.trim()
+    (!isUpdating || data.name !== nameInput.value.trim())
   ) {
-    errorMsg.innerText = "Name is already taken, enter new one";
-    errorMsg.style.display = "block";
-  } else if (!isUpdating && nameExists.length > 0) {
     errorMsg.innerText = "Name is already taken, enter new one";
     errorMsg.style.display = "block";
   } else if (
@@ -204,10 +201,10 @@ export const addOrUpdateForm = (
     }
 
     emptyContacts();
+    if (!isUpdating) addContact(contactData);
     renderContacts(contacts);
     emptyForm(form);
     hideMenu(form);
-    if (!isUpdating) addContact(data);
 
     searchBar.value = "";
   }
