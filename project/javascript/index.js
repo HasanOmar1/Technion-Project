@@ -1,6 +1,12 @@
 "use strict";
 // import { contacts } from "./contacts.js";
-import { emptyInputsValues, sortArr } from "./utils.js";
+import {
+  createForm,
+  emptyForm,
+  isValidImageSrc,
+  isValidPhoneNumber,
+  sortArr,
+} from "./utils.js";
 
 import {
   contactsContainerBackground,
@@ -10,19 +16,13 @@ import {
 } from "./cssChanges.js";
 
 import {
-  ageInput,
-  addressInput,
   contactsContainer,
   dataLength,
   deleteAllContactsBtn,
-  emailInput,
   formMenu,
-  imageInput,
-  nameInput,
-  phoneInput,
   searchBar,
   contactInfoMenu,
-  errorMsg,
+  addContactOpenMenu,
 } from "./domVariables.js";
 
 let contacts = [
@@ -31,7 +31,7 @@ let contacts = [
     name: "John Cena",
     img: "./images/contacts/john-cena.jpg",
     age: 31,
-    phone: 1234567,
+    phone: "050456789",
     address: "USA",
     email: "John@gmail.com",
   },
@@ -40,17 +40,17 @@ let contacts = [
     name: "The Rock",
     img: "./images/contacts/the-rock.jpg",
     age: 34,
-    phone: 7654321,
+    phone: "05245678910",
     address: "Alaska",
     email: "ZaRock@gmail.com",
   },
   {
     id: 3,
     name: "Asd The Tiger",
-    img: "./images/contacts/no-user-image.gif",
+    // img: "./images/contacts/no-user-image.gif",
     // age: 31,
-    phone: 321234,
-    address: "There",
+    phone: "0546543210",
+    address: "Ze Jungle",
     email: "Lion@hotmail.com",
   },
   {
@@ -58,7 +58,7 @@ let contacts = [
     name: "Car",
     img: "./images/contacts/car.webp",
     age: 26,
-    phone: 13123451,
+    phone: "05865343210",
     address: "Romania",
     email: "car@gmail.com",
   },
@@ -117,12 +117,21 @@ let counter = allData.length;
 formMenu.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  const errorMsg = document.querySelector(".error-msg");
+
+  const nameInput = document.querySelector("#name-input");
+  const emailInput = document.querySelector("#email-input");
+  const phoneInput = document.querySelector("#phone-input");
+  const addressInput = document.querySelector("#address-input");
+  const ageInput = document.querySelector("#age-input");
+  const imageInput = document.querySelector("#image-input");
+
   const data = {
     id: ++counter,
     name: nameInput.value[0].toUpperCase() + nameInput.value.slice(1).trim(),
     email: emailInput.value.trim(),
     img:
-      imageInput.value.length !== 0
+      imageInput.value.trim().length !== 0
         ? imageInput.value
         : "./images/contacts/no-user-image.gif",
     age: ageInput.value.trim(),
@@ -143,6 +152,15 @@ formMenu.addEventListener("submit", (e) => {
   ) {
     errorMsg.innerText = "Enter name and phone number!";
     errorMsg.style.display = "block";
+  } else if (!isValidPhoneNumber(phoneInput.value.trim())) {
+    errorMsg.innerText = "Enter a valid phone number! (9-11 numbers)";
+    errorMsg.style.display = "block";
+  } else if (
+    imageInput.value.trim().length !== 0 &&
+    !isValidImageSrc(imageInput.value.trim())
+  ) {
+    errorMsg.innerText = "Enter a valid image URL";
+    errorMsg.style.display = "block";
   } else {
     errorMsg.innerText = "";
     errorMsg.style.display = "none";
@@ -150,7 +168,7 @@ formMenu.addEventListener("submit", (e) => {
     emptyContacts();
     addContact(data);
     renderContacts(contacts);
-    emptyInputsValues();
+    emptyForm(formMenu);
 
     searchBar.value = "";
     hideMenu(formMenu);
@@ -200,7 +218,7 @@ const createElements = (data) => {
   contactInfo.append(rightSide);
 
   const leftSideImg = document.createElement("img");
-  leftSideImg.src = data.img;
+  leftSideImg.src = data.img ?? "./images/contacts/no-user-image.gif";
   leftSideImg.alt = data.name;
 
   const nameAndPhoneContainer = document.createElement("div");
@@ -311,7 +329,7 @@ const createContactInfoElements = (data) => {
 
   // img
   const contactImg = document.createElement("img");
-  contactImg.src = data.img;
+  contactImg.src = data.img ?? "./images/contacts/no-user-image.gif";
   contactImg.alt = data.name;
 
   contactInfoMenu.append(contactName);
@@ -332,3 +350,8 @@ const renderContacts = (array) => {
 };
 
 renderContacts(allData);
+
+addContactOpenMenu.addEventListener("click", () => {
+  showMenu(formMenu);
+  createForm(formMenu, "Add Contact Menu", "Add");
+});
