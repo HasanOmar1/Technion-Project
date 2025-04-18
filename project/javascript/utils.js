@@ -202,7 +202,7 @@ export const addOrUpdateForm = (
       data.address = addressInput.value.trim();
     }
 
-    utils.emptyContacts(contactsContainer, allData);
+    emptyContacts(contactsContainer, allData);
     if (!isUpdating) addContact(contactData);
     renderContacts(contacts);
     emptyForm(form);
