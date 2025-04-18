@@ -2,29 +2,30 @@
 
 import { getContacts } from "./contacts.js";
 import * as utils from "./utils.js";
-import * as variable from "./domVariables.js";
+import * as element from "./domVariables.js";
 import { hideMenu, showMenu } from "./cssChanges.js";
 
-utils.contactsText(variable.contactsContainer);
+// adds "Contacts" text
+utils.contactsText(element.contactsContainer);
 
+// gets contacts array
 let contacts = getContacts();
 utils.sortArr(contacts);
 
 let allData = [];
 allData = [...contacts];
 
-variable.dataLength.innerText = `${contacts.length} Contacts`;
+element.dataLength.innerText = `${contacts.length} Contacts`;
 
 // adds contact to the phone book
 export const addContact = (data) => {
-  utils.contactsText(variable.contactsContainer);
   contacts.push(data);
   allData.push(data);
 
-  variable.dataLength.innerText = `${contacts.length} Contacts`;
+  element.dataLength.innerText = `${contacts.length} Contacts`;
 };
 
-variable.searchBar.addEventListener("input", (e) => {
+element.searchBar.addEventListener("input", (e) => {
   const searchText = e.target.value.toLowerCase();
   const filteredByName = contacts.filter((data) =>
     data.name.toLowerCase().includes(searchText)
@@ -32,27 +33,29 @@ variable.searchBar.addEventListener("input", (e) => {
 
   if (e.target.value.length !== 0) {
     allData = filteredByName;
-    utils.emptyContacts(variable.contactsContainer, allData);
+    utils.emptyContacts(element.contactsContainer, allData);
+    utils.contactsText(element.contactsContainer);
   } else {
     allData = [...contacts];
-    utils.emptyContacts(variable.contactsContainer, allData);
+    utils.emptyContacts(element.contactsContainer, allData);
+    utils.contactsText(element.contactsContainer);
   }
 
   renderContacts(allData);
 
   if (!allData.length) {
-    utils.emptyContacts(variable.contactsContainer, allData);
-    utils.noDataText(variable.contactsContainer);
+    utils.emptyContacts(element.contactsContainer, allData);
+    utils.noDataText(element.contactsContainer);
   }
 
-  variable.dataLength.innerText = `${allData.length} Contacts`;
+  element.dataLength.innerText = `${allData.length} Contacts`;
 });
 
 // for the contacts ids [to keep them unique]
 let counter = allData.length;
 
 // add contact form
-variable.addFormMenu.addEventListener("submit", (e) => {
+element.addFormMenu.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const errorMsg = document.querySelector(".error-msg");
@@ -84,16 +87,16 @@ variable.addFormMenu.addEventListener("submit", (e) => {
     phoneInput,
     imageInput,
     false,
-    variable.addFormMenu,
-    variable.searchBar,
+    element.addFormMenu,
+    element.searchBar,
     contactData,
     allData,
-    variable.contactsContainer
+    element.contactsContainer
   );
 });
 
 // update contact form
-variable.updateFormMenu.addEventListener("submit", (e) => {
+element.updateFormMenu.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const errorMsg = document.querySelector(".error-msg");
@@ -115,11 +118,11 @@ variable.updateFormMenu.addEventListener("submit", (e) => {
     phoneInput,
     imageInput,
     true,
-    variable.updateFormMenu,
-    variable.searchBar,
+    element.updateFormMenu,
+    element.searchBar,
     null,
     allData,
-    variable.contactsContainer,
+    element.contactsContainer,
     data,
     ageInput,
     addressInput,
@@ -131,9 +134,9 @@ variable.updateFormMenu.addEventListener("submit", (e) => {
 const deleteAllContacts = () => {
   contacts = [];
   allData = [];
-  utils.emptyContacts(variable.contactsContainer, allData);
-  utils.noDataText(variable.contactsContainer);
-  variable.dataLength.innerText = `${allData.length} Contacts`;
+  utils.emptyContacts(element.contactsContainer, allData);
+  utils.noDataText(element.contactsContainer);
+  element.dataLength.innerText = `${allData.length} Contacts`;
 };
 
 // deletes one contact from the phone book
@@ -141,21 +144,24 @@ const deleteContactById = (id) => {
   allData = allData.filter((data) => id !== data.id);
   contacts = contacts.filter((data) => id !== data.id);
 
-  utils.emptyContacts(variable.contactsContainer, allData);
+  utils.emptyContacts(element.contactsContainer, allData);
+
   renderContacts(allData);
 
-  if (variable.searchBar.value.length === 0) {
+  if (element.searchBar.value.length === 0) {
     allData = [...contacts];
-    utils.emptyContacts(variable.contactsContainer, allData);
+    utils.emptyContacts(element.contactsContainer, allData);
+    utils.contactsText(element.contactsContainer);
     renderContacts(allData);
-    variable.dataLength.innerText = `${contacts.length} Contacts`;
+    element.dataLength.innerText = `${contacts.length} Contacts`;
   } else {
-    variable.dataLength.innerText = `${allData.length} Contacts`;
+    element.dataLength.innerText = `${allData.length} Contacts`;
   }
-  if (!allData.length) utils.noDataText(variable.contactsContainer);
+  if (!allData.length) {
+    utils.emptyContacts(element.contactsContainer, allData);
+    utils.noDataText(element.contactsContainer);
+  }
 };
-
-variable.deleteAllContactsBtn.addEventListener("click", deleteAllContacts);
 
 // to store the current contact info when clicking on one
 let currentContact = {};
@@ -178,7 +184,7 @@ const createElements = (data) => {
 
   contactInfo.addEventListener("click", () => {
     createContactInfoElements(data);
-    showMenu(variable.contactInfoMenu);
+    showMenu(element.contactInfoMenu);
   });
 
   const leftSide = document.createElement("div");
@@ -230,9 +236,9 @@ const createElements = (data) => {
   editContact.addEventListener("click", (e) => {
     e.stopPropagation();
     currentContact = data;
-    showMenu(variable.updateFormMenu);
+    showMenu(element.updateFormMenu);
     utils.createForm(
-      variable.updateFormMenu,
+      element.updateFormMenu,
       "Update Contact Menu",
       "Save",
       data,
@@ -255,27 +261,27 @@ const createElements = (data) => {
   rightSide.append(editContact);
   rightSide.append(deleteContact);
 
-  variable.contactsContainer.append(contactInfo);
+  element.contactsContainer.append(contactInfo);
 };
 
 const createContactInfoElements = (data) => {
   //title
   const contactInfoTitle = document.createElement("h3");
   contactInfoTitle.innerText = "Contact Name";
-  variable.contactInfoMenu.append(contactInfoTitle);
+  element.contactInfoMenu.append(contactInfoTitle);
 
   // X to close menu
   const contactInfoCloseMenu = document.createElement("div");
   contactInfoCloseMenu.innerText = "X";
   contactInfoCloseMenu.classList = "x";
   contactInfoCloseMenu.id = "close-contact-info-menu";
-  variable.contactInfoMenu.append(contactInfoCloseMenu);
+  element.contactInfoMenu.append(contactInfoCloseMenu);
 
   // event to close the menu and remove its children
   contactInfoCloseMenu.addEventListener("click", () => {
-    hideMenu(variable.contactInfoMenu);
-    while (variable.contactInfoMenu.firstChild)
-      variable.contactInfoMenu.firstChild.remove();
+    hideMenu(element.contactInfoMenu);
+    while (element.contactInfoMenu.firstChild)
+      element.contactInfoMenu.firstChild.remove();
   });
 
   //name
@@ -319,12 +325,12 @@ const createContactInfoElements = (data) => {
     data.img ?? "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
   contactImg.alt = data.name;
 
-  variable.contactInfoMenu.append(contactName);
-  if (data.email) variable.contactInfoMenu.append(contactEmail);
-  variable.contactInfoMenu.append(contactPhone);
-  if (data.address) variable.contactInfoMenu.append(contactAddress);
-  if (data.age) variable.contactInfoMenu.append(contactAge);
-  variable.contactInfoMenu.append(contactImg);
+  element.contactInfoMenu.append(contactName);
+  if (data.email) element.contactInfoMenu.append(contactEmail);
+  element.contactInfoMenu.append(contactPhone);
+  if (data.address) element.contactInfoMenu.append(contactAddress);
+  if (data.age) element.contactInfoMenu.append(contactAge);
+  element.contactInfoMenu.append(contactImg);
 };
 
 // sorts the contacts then renders them (displays them on screen)
@@ -337,7 +343,9 @@ export const renderContacts = (array) => {
 
 renderContacts(allData);
 
-variable.addContactOpenMenu.addEventListener("click", () => {
-  showMenu(variable.addFormMenu);
-  utils.createForm(variable.addFormMenu, "Add Contact Menu", "Add", false);
+element.addContactOpenMenu.addEventListener("click", () => {
+  showMenu(element.addFormMenu);
+  utils.createForm(element.addFormMenu, "Add Contact Menu", "Add", false);
 });
+
+element.deleteAllContactsBtn.addEventListener("click", deleteAllContacts);

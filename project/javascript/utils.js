@@ -203,6 +203,8 @@ export const addOrUpdateForm = (
     }
 
     emptyContacts(contactsContainer, allData);
+    contactsText(contactsContainer);
+
     if (!isUpdating) addContact(contactData);
     renderContacts(contacts);
     emptyForm(form);
