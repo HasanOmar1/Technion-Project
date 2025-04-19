@@ -8,6 +8,7 @@
   --primary-color: #00adb5;
   --secondary-color: #222831;
   --third-color: #393e46;
+  --fourth-color: #b2b500;
 }
 
 body {
@@ -41,7 +42,8 @@ h1 {
 
 #data-length {
   font-size: 1.1rem;
-  color: #b2b500;
+  color: var(--fourth-color);
+  font-weight: bold;
 }
 
 .actions-container {
@@ -87,7 +89,11 @@ h1 {
 
 .svgs-container {
   display: flex;
-  gap: 5px;
+  gap: 10px;
+}
+
+.svgs-container img {
+  transition: all 0.2s;
 }
 
 .actions-container img {
@@ -161,7 +167,7 @@ h1 {
 }
 
 .contact-info .left span {
-  color: #b2b500;
+  color: var(--fourth-color);
   display: inline-block;
   width: 60px;
   font-weight: bold;
@@ -181,7 +187,8 @@ h1 {
   z-index: 999;
 }
 
-.contact-info .right img:hover {
+.contact-info .right img:hover,
+.svgs-container img:hover {
   transform: scale(1.2);
 }
 
@@ -219,7 +226,7 @@ form,
 
 form h3,
 .contact-info-menu h3 {
-  color: #b2b500;
+  color: var(--fourth-color);
 }
 
 form .x,
