@@ -184,7 +184,7 @@ h1 {
   height: 25px;
   cursor: pointer;
   transition: all 0.2s;
-  z-index: 999;
+  /* z-index: 10; */
 }
 
 .contact-info .right img:hover,
@@ -219,7 +219,7 @@ form,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 99;
+  z-index: 500;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   padding: 30px;
 }
@@ -307,4 +307,55 @@ form #add-contact-btn:hover {
   height: 90px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+/* IPAD PRO + IPAD MINI */
+
+@media (max-width: 1024px) {
+  .data-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 430px) {
+  .data-container {
+    width: 100%;
+  }
+
+  .add-contact-menu,
+  .update-contact-menu {
+    font-size: 1rem;
+    width: 350px;
+  }
+
+  .contact-info-menu,
+  .add-contact-menu,
+  .update-contact-menu {
+    font-size: 1rem;
+    min-width: 360px;
+  }
+
+  .contact-info-menu p {
+    width: 250px;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .contact-info .right {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 375px) {
+  .contact-info .right {
+    margin-left: 56px;
+  }
+
+  .contact-info .left {
+    width: 245px;
+  }
 }
