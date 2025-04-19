@@ -131,6 +131,13 @@ h1 {
   padding: 20px;
   border-radius: 5px;
   transition: all 0.3s ease;
+  background-color: var(--secondary-color);
+}
+
+.scaleWithBg {
+  background-color: var(--third-color);
+  transform: scale(1.01);
+  cursor: pointer;
 }
 
 .contact-info img {

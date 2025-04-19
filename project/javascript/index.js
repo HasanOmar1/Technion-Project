@@ -172,14 +172,11 @@ const createElements = (data) => {
   contactInfo.className = "contact-info";
 
   contactInfo.addEventListener("mouseover", () => {
-    contactInfo.style.backgroundColor = "#393e46";
-    contactInfo.style.cursor = "pointer";
-    contactInfo.style.transform = "scale(1.01)";
+    contactInfo.classList.toggle("scaleWithBg");
   });
 
   contactInfo.addEventListener("mouseout", () => {
-    contactInfo.style.backgroundColor = "rgb(34, 40, 49)";
-    contactInfo.style.transform = "scale(1)";
+    contactInfo.classList.toggle("scaleWithBg");
   });
 
   contactInfo.addEventListener("click", () => {
@@ -273,7 +270,7 @@ const createContactInfoElements = (data) => {
   // X to close menu
   const contactInfoCloseMenu = document.createElement("div");
   contactInfoCloseMenu.innerText = "X";
-  contactInfoCloseMenu.classList = "x";
+  contactInfoCloseMenu.className = "x";
   contactInfoCloseMenu.id = "close-contact-info-menu";
   element.contactInfoMenu.append(contactInfoCloseMenu);
 

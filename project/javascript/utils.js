@@ -216,7 +216,7 @@ export const addOrUpdateForm = (
 
 export const noDataText = (contactsContainer) => {
   const noDataContainer = document.createElement("div");
-  noDataContainer.classList = "no-contacts-container";
+  noDataContainer.className = "no-contacts-container";
 
   const text = document.createElement("h2");
   text.innerText = "No Contacts Found";
