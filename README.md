@@ -1,1 +1,0 @@
-Technion JavaScript course
