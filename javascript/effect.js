@@ -1,3 +1,6 @@
+// effects are taken from this site
+// https://www.sliderrevolution.com/design/cool-javascript-animations/
+
 const newParticlesPerFrame = 50;
 
 const color = (hsl, o) => {
