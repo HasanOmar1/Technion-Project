@@ -18,6 +18,7 @@ canvas {
   cursor: pointer;
   transition: 0.2s all;
   font-size: 0.9rem;
+  outline: none;
 }
 
 .effect-btn:hover {
