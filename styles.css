@@ -320,7 +320,6 @@ form #add-contact-btn:hover {
 }
 
 /* Footer */
-
 footer {
   color: var(--primary-color);
   height: 50px;
@@ -331,6 +330,15 @@ footer {
   background-color: var(--third-color);
   gap: 20px;
   padding: 80px 0;
+}
+
+/* effects */
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
 }
 
 /* IPAD PRO + IPAD MINI */

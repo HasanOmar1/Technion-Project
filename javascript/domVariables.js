@@ -14,3 +14,11 @@ export const backDrop = document.querySelector("#backdrop");
 export const addFormMenu = document.querySelector(".add-contact-menu");
 export const updateFormMenu = document.querySelector(".update-contact-menu");
 export const contactInfoMenu = document.querySelector(".contact-info-menu");
+
+// effects
+export const effectBtn = document.querySelector(".effect-btn");
+export const effectsContainer = document.querySelector(".effect-container");
+
+// footer + main
+export const main = document.querySelector("main");
+export const footer = document.querySelector("footer");

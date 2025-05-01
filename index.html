@@ -6,8 +6,13 @@
     <title>Phone Book</title>
     <link rel="stylesheet" href="./styles.css" />
     <link rel="icon" href="./images/favicon.png" />
+    <link rel="stylesheet" href="./effect.css" />
   </head>
   <body>
+    <!-- floating button that adds effect -->
+    <button class="effect-btn">Click Me</button>
+    <!--  -->
+
     <main class="big-container">
       <h1>Phone Book</h1>
 
@@ -58,12 +63,30 @@
       <!-- displays each contact info through JS -->
       <div class="contact-info-menu"></div>
     </main>
+
+    <div class="effect-container hide">
+      <!-- Effect -->
+      <div id="effect">
+        <ul data-time="3000">
+          <li data-hue="120">W</li>
+          <li data-hue="0">E</li>
+          <li data-hue="197">L</li>
+          <li data-hue="45">C</li>
+          <li data-hue="15">O</li>
+          <li data-hue="150">M</li>
+          <li data-hue="310">E</li>
+        </ul>
+      </div>
+      <canvas></canvas>
+    </div>
+
     <footer>
       <h4>חסן עומר</h4>
       <h4>עיסא לואבנה</h4>
       <p>&copy; 2025</p>
     </footer>
 
+    <script src="./javascript/effect.js"></script>
     <script src="./javascript/index.js" type="module"></script>
   </body>
 </html>
