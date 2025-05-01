@@ -11,9 +11,19 @@
   --fourth-color: #b2b500;
 }
 
+html,
+body {
+  height: 100%;
+}
 body {
   background-color: var(--secondary-color);
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
 }
 
 .big-container {
@@ -307,6 +317,20 @@ form #add-contact-btn:hover {
   height: 90px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+/* Footer */
+
+footer {
+  color: var(--primary-color);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--third-color);
+  gap: 20px;
+  padding: 80px 0;
 }
 
 /* IPAD PRO + IPAD MINI */
