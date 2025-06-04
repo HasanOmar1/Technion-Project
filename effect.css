@@ -19,6 +19,8 @@ canvas {
   transition: 0.2s all;
   font-size: 0.9rem;
   outline: none;
+  width: fit-content;
+  height: fit-content;
 }
 
 .effect-btn:hover {
@@ -30,6 +32,18 @@ canvas {
   position: absolute;
   top: 800px;
   left: 45%;
+}
+
+@media (max-width: 1440px) {
+  .effect-btn {
+    top: 120px;
+    left: 340px;
+  }
+
+  .move {
+    top: 80%;
+    left: 40%;
+  }
 }
 
 @media (max-width: 1024px) {
