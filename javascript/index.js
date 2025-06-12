@@ -1,11 +1,11 @@
 "use strict";
 
-import { getContacts } from "./contacts.js";
+import { getContacts } from "./contacts.js"; // imports the contacts array
 import * as utils from "./utils.js";
-import * as element from "./domVariables.js";
+import * as element from "./domVariables.js"; // imports all variables
 import { hideMenu, showMenu } from "./cssChanges.js";
 
-// adds "Contacts" text
+// adds "Contacts" text at the start of the menu
 utils.contactsText(element.contactsContainer);
 
 // gets contacts array
@@ -26,13 +26,13 @@ export const addContact = (data) => {
 };
 
 element.searchBar.addEventListener("input", (e) => {
-  const searchText = e.target.value.toLowerCase();
-  const filteredByName = contacts.filter((data) =>
+  const searchText = e.target.value.toLowerCase().trim();
+  const filteredByNameArr = contacts.filter((data) =>
     data.name.toLowerCase().includes(searchText)
   );
 
   if (e.target.value.length !== 0) {
-    allData = filteredByName;
+    allData = filteredByNameArr;
     utils.emptyContacts(element.contactsContainer, allData);
     utils.contactsText(element.contactsContainer);
   } else {

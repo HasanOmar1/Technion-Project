@@ -39,7 +39,7 @@ export let contacts = [
   },
 ];
 
-// lets contacts array act like its let and not const (exporting something is readonly)
+// lets contacts array act like its "let" and not "const" (exporting something is readonly)
 // which allows me to change the values of the array
 export const getContacts = () => {
   return contacts;
