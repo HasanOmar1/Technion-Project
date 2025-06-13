@@ -26,7 +26,7 @@ export let contacts = [
     id: 3,
     name: "Asd The Tiger",
     // img: "https://i.postimg.cc/HkbBPXj2/no-user-image.gif",
-    // age: 31,
+    // age: 30,
     phone: "0546543210",
     address: "Ze Jungle",
     email: "Lion@hotmail.com",

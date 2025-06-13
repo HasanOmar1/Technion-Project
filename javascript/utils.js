@@ -210,11 +210,48 @@ export const addOrUpdateForm = (
         imageInput.value.trim().length !== 0
           ? imageInput.value
           : "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
-      data.age = ageInput.value.trim();
+      data.age = ageInput.value;
       data.phone = phoneInput.value.trim();
       data.address = addressInput.value.trim();
       data.editedAt = editedAt();
     }
+
+    // let checkIfUpdated = false;
+
+    // if (isUpdating) {
+    //   if (
+    //     data.name !==
+    //       nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim() ||
+    //     data.email !== emailInput.value.trim() ||
+    //     data.age !== +ageInput.value ||
+    //     data.phone !== phoneInput.value.trim() ||
+    //     data.address !== addressInput.value.trim()
+    //   ) {
+    //     checkIfUpdated = true;
+    //   }
+
+    //   if (checkIfUpdated) {
+    //     console.log("updated");
+    //   } else {
+    //     console.log("Didnt update");
+    //   }
+    // }
+    // if (isUpdating) {
+    //   data.name =
+    //     nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim();
+    //   data.email = emailInput.value.trim();
+
+    //   data.img =
+    //     imageInput.value.trim().length !== 0
+    //       ? imageInput.value
+    //       : "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
+
+    //   if (data.age !== undefined) data.age = +ageInput.value;
+
+    //   data.phone = phoneInput.value.trim();
+    //   data.address = addressInput.value.trim();
+    //   data.editedAt = editedAt();
+    // }
 
     // empties contacts on screen
     emptyContacts(contactsContainer);
@@ -267,10 +304,17 @@ export const editedAt = () => {
   ];
 
   const date = new Date();
-  const time = date.getHours() + ":" + date.getMinutes();
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
 
-  const fullDate =
-    date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+  if (minutes < 10) minutes = "0" + minutes;
+  const time = hours + ":" + minutes;
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let year = date.getFullYear();
+
+  const fullDate = day + " " + month + " " + year;
 
   const dateAndTime = fullDate + ", " + time;
 

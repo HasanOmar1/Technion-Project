@@ -233,13 +233,15 @@ const createElements = (data) => {
   contactPhone.append(data.phone);
 
   // contact edited date and time
-  const contacteditedAt = document.createElement("p");
-  contacteditedAt.innerText = data.editedAt;
-  contacteditedAt.className = "edited";
+  const contactEditedAt = document.createElement("p");
+  if (data.editedAt) contactEditedAt.innerText = "edited on " + data.editedAt;
+  else contactEditedAt.innerText = "";
+
+  contactEditedAt.className = "edited";
 
   nameAndPhoneContainer.append(contactName);
   nameAndPhoneContainer.append(contactPhone);
-  nameAndPhoneContainer.append(contacteditedAt);
+  nameAndPhoneContainer.append(contactEditedAt);
 
   leftSide.append(leftSideImg);
   leftSide.append(nameAndPhoneContainer);
