@@ -148,13 +148,17 @@ const deleteAllContacts = () => {
 
 // deletes one contact from the phone book
 const deleteContactById = (id) => {
+  // deletes the contact if it was searched for
   allData = allData.filter((data) => id !== data.id);
+
+  // deletes the contact from all contacts
   contacts = contacts.filter((data) => id !== data.id);
 
   utils.emptyContacts(element.contactsContainer);
 
   renderContacts(allData);
 
+  // checks if the contact was searched for and updates contact counter
   if (element.searchBar.value.length === 0) {
     allData = [...contacts];
     utils.emptyContacts(element.contactsContainer);
@@ -164,6 +168,8 @@ const deleteContactById = (id) => {
   } else {
     element.dataLength.innerText = `${allData.length} Contacts`;
   }
+
+  // if no contacts found then display msg
   if (!allData.length) {
     utils.emptyContacts(element.contactsContainer);
     utils.noDataText(element.contactsContainer);
@@ -241,10 +247,13 @@ const createElements = (data) => {
   editContact.src = "./images/svgs/edit-svg.png";
   editContact.alt = "edit-contact-svg";
   editContact.id = `edit-contact-${data.id}`;
+
   editContact.addEventListener("click", (e) => {
     e.stopPropagation(); // its like giving it more z-index (clicks on element only and not the parent element)
-    currentContact = data;
+    currentContact = data; // updates currentContact to be the selected one
     showMenu(element.updateFormMenu);
+
+    // creates update form
     utils.createForm(
       element.updateFormMenu,
       "Update Contact Menu",
@@ -261,7 +270,7 @@ const createElements = (data) => {
   deleteContact.alt = "delete-contact-svg";
   deleteContact.id = `delete-contact-${data.id}`;
   deleteContact.addEventListener("click", (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // its like giving it more z-index (clicks on element only and not the parent element)
     deleteContactById(data.id);
   });
 
@@ -273,6 +282,7 @@ const createElements = (data) => {
   element.contactsContainer.append(contactInfo);
 };
 
+// creates the contact info menu in HTML (when clicked on contact)
 const createContactInfoElements = (data) => {
   //title
   const contactInfoTitle = document.createElement("h3");
@@ -333,10 +343,10 @@ const createContactInfoElements = (data) => {
   contactImg.alt = data.name;
 
   element.contactInfoMenu.append(contactName);
-  if (data.email) element.contactInfoMenu.append(contactEmail);
+  if (data.email) element.contactInfoMenu.append(contactEmail); // if contact has an email
   element.contactInfoMenu.append(contactPhone);
-  if (data.address) element.contactInfoMenu.append(contactAddress);
-  if (data.age) element.contactInfoMenu.append(contactAge);
+  if (data.address) element.contactInfoMenu.append(contactAddress); // if contact has an address
+  if (data.age) element.contactInfoMenu.append(contactAge); // if contact has an age
   element.contactInfoMenu.append(contactImg);
 };
 
@@ -348,11 +358,15 @@ export const renderContacts = (array) => {
   });
 };
 
+// renderes contacts when loading up the website
 renderContacts(allData);
 
+// add contact button
 element.addContactOpenMenu.addEventListener("click", () => {
   showMenu(element.addFormMenu);
+  // creates the add contact form
   utils.createForm(element.addFormMenu, "Add Contact Menu", "Add", false);
 });
 
+// deletes all contacts
 element.deleteAllContactsBtn.addEventListener("click", deleteAllContacts);

@@ -3,7 +3,7 @@
 import { hideMenu } from "./cssChanges.js";
 import { addContact, renderContacts } from "./index.js";
 
-// sorts the contacts alphabetically
+// sorts the contacts alphabetically by name
 export const sortArr = (arr) => {
   arr.sort((a, b) => a.name.localeCompare(b.name));
 };
@@ -37,7 +37,6 @@ export const createForm = (
 
   // error msg
   const errorMsg = document.createElement("p");
-  // errorMsg.innerText = "";
   errorMsg.className = "error-msg";
   form.append(errorMsg);
 
@@ -108,10 +107,9 @@ const createInputContainer = (
   inputName,
   optional = {}
 ) => {
-  // container
-
   const { maxLength, required, min, max, data } = optional;
 
+  // container
   const container = document.createElement("div");
   form.append(container);
 
@@ -128,6 +126,7 @@ const createInputContainer = (
   input.id = labelFor;
   input.value = data ?? "";
 
+  // optional attributes (depends on the input)
   if (maxLength !== undefined) input.maxLength = maxLength;
   if (required !== undefined) input.required = required;
   if (min !== undefined) input.min = min;
