@@ -6,7 +6,6 @@ import {
   main,
   footer,
   effectsContainer,
-  contactInfoMenu,
 } from "./domVariables.js";
 import { emptyForm } from "./utils.js";
 
@@ -14,9 +13,8 @@ export const showMenu = (menu) => {
   menu.style.display = "flex";
   backDrop.className = "backdrop";
   document.body.style.overflow = "hidden";
-  backDrop.addEventListener("click", (e) => {
-    hideMenu(contactInfoMenu);
-    emptyForm(contactInfoMenu);
+  backDrop.addEventListener("click", () => {
+    hideMenu(menu);
   });
 };
 
@@ -24,6 +22,7 @@ export const hideMenu = (menu) => {
   menu.style.display = "none";
   backDrop.className = "";
   document.body.style.overflow = "auto";
+  emptyForm(menu);
 };
 
 effectBtn.addEventListener("click", () => {

@@ -49,7 +49,6 @@ export const createForm = (
 
   xToCloseMenu.addEventListener("click", () => {
     hideMenu(form);
-    emptyForm(form);
     if (isUpdating) {
       currentContact = {};
     }
@@ -207,7 +206,6 @@ export const addOrUpdateForm = (
 
     if (!isUpdating) addContact(contactData);
     renderContacts(contacts);
-    emptyForm(form);
     hideMenu(form);
 
     searchBar.value = "";
