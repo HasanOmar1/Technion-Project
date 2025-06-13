@@ -1,3 +1,4 @@
+"use strict";
 // effects are taken from this site
 // https://www.sliderrevolution.com/design/cool-javascript-animations/
 
