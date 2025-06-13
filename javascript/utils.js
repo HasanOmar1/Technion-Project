@@ -22,6 +22,7 @@ export const isValidImageSrc = (url) => {
   return regex.test(url);
 };
 
+// dynamically creates a form
 export const createForm = (
   form,
   titleText,
@@ -134,14 +135,17 @@ const createInputContainer = (
   container.append(input);
 };
 
+// empties the contacts on screen
 export const emptyContacts = (contactsContainer) => {
   while (contactsContainer.firstChild) contactsContainer.firstChild.remove();
 };
 
+// empties the form elements
 export const emptyForm = (form) => {
   while (form.firstChild) form.firstChild.remove();
 };
 
+// dynamically knows if the form is to update contact or to add contact
 export const addOrUpdateForm = (
   contacts,
   nameInput,
@@ -152,17 +156,23 @@ export const addOrUpdateForm = (
   form,
   searchBar,
   contactData,
-  allData,
   contactsContainer,
+  // last 4 parameters are for the update form only
   data,
   ageInput,
   addressInput,
   emailInput
 ) => {
+  // checks if contact name is already there
   const nameExists = contacts.filter(
     (data) => nameInput.value.toLowerCase().trim() === data.name.toLowerCase()
   );
 
+  // if the name is found already in contacts
+  // and the form is to add contact then display error msg
+  // if the form is to update contact then it checks
+  // if the name input equals to a name already found
+  // then display error msg
   if (
     nameExists.length > 0 &&
     (!isUpdating || data.name !== nameInput.value.trim())
@@ -170,24 +180,29 @@ export const addOrUpdateForm = (
     errorMsg.innerText = "Name is already taken, enter new one";
     errorMsg.style.display = "block";
   } else if (
+    // checks if name or phone are empty then displays error msg
     nameInput.value.trim().length === 0 ||
     phoneInput.value.trim().length === 0
   ) {
     errorMsg.innerText = "Enter name and phone number!";
     errorMsg.style.display = "block";
   } else if (!isValidPhoneNumber(phoneInput.value.trim())) {
+    // if the phone number is not valid then it displays error msg
     errorMsg.innerText = "Enter a valid phone number! (9-11 numbers)";
     errorMsg.style.display = "block";
   } else if (
+    // if the image link is not valid link then it displays error msg
     imageInput.value.trim().length !== 0 &&
     !isValidImageSrc(imageInput.value.trim())
   ) {
     errorMsg.innerText = "Enter a valid image URL or keep it empty";
     errorMsg.style.display = "block";
   } else {
+    // if no errors then dont display the error msg
     errorMsg.innerText = "";
     errorMsg.style.display = "none";
 
+    // if the form is the update form then it updates the contact
     if (isUpdating) {
       data.name =
         nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim();
@@ -201,10 +216,14 @@ export const addOrUpdateForm = (
       data.address = addressInput.value.trim();
     }
 
-    emptyContacts(contactsContainer, allData);
+    // empties contacts on screen
+    emptyContacts(contactsContainer);
     contactsText(contactsContainer);
 
+    // if the form is not update then it adds the contact
     if (!isUpdating) addContact(contactData);
+
+    // renders contacts on screen
     renderContacts(contacts);
     hideMenu(form);
 
@@ -212,6 +231,7 @@ export const addOrUpdateForm = (
   }
 };
 
+// adds "No Contacts Found" text if no contacts found
 export const noDataText = (contactsContainer) => {
   const noDataContainer = document.createElement("div");
   noDataContainer.className = "no-contacts-container";
@@ -223,6 +243,7 @@ export const noDataText = (contactsContainer) => {
   contactsContainer.append(noDataContainer);
 };
 
+// adds "Contacts" text at the start of the menu
 export const contactsText = (contactsContainer) => {
   const text = document.createElement("h2");
   text.innerText = "Contacts";
