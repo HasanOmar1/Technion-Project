@@ -34,6 +34,11 @@ canvas {
   left: 45%;
 }
 
+.edited {
+  color: gray;
+  font-size: 0.7rem;
+}
+
 @media (max-width: 1440px) {
   .effect-btn {
     top: 120px;

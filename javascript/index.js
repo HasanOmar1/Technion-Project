@@ -85,6 +85,7 @@ element.addFormMenu.addEventListener("submit", (e) => {
     age: ageInput.value.trim(),
     phone: phoneInput.value.trim(),
     address: addressInput.value.trim(),
+    editedAt: "",
   };
 
   // adds contact to the array
@@ -217,20 +218,29 @@ const createElements = (data) => {
   const nameAndPhoneContainer = document.createElement("div");
   nameAndPhoneContainer.className = "name-phone-container";
 
+  // contact name
   const contactNameSpan = document.createElement("span");
   contactNameSpan.innerText = `Name: `;
   const contactName = document.createElement("p");
   contactName.append(contactNameSpan);
   contactName.append(data.name);
 
+  //contact phone number
   const contactPhone = document.createElement("p");
   const contactPhoneSpan = document.createElement("span");
   contactPhoneSpan.innerText = `Phone: `;
   contactPhone.append(contactPhoneSpan);
   contactPhone.append(data.phone);
 
+  // contact edited date and time
+  const contacteditedAt = document.createElement("p");
+  contacteditedAt.innerText = data.editedAt;
+  contacteditedAt.className = "edited";
+
   nameAndPhoneContainer.append(contactName);
   nameAndPhoneContainer.append(contactPhone);
+  nameAndPhoneContainer.append(contacteditedAt);
+
   leftSide.append(leftSideImg);
   leftSide.append(nameAndPhoneContainer);
   // End of Left Side Data (img,name,phone)

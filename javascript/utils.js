@@ -213,6 +213,7 @@ export const addOrUpdateForm = (
       data.age = ageInput.value.trim();
       data.phone = phoneInput.value.trim();
       data.address = addressInput.value.trim();
+      data.editedAt = editedAt();
     }
 
     // empties contacts on screen
@@ -247,4 +248,31 @@ export const contactsText = (contactsContainer) => {
   const text = document.createElement("h2");
   text.innerText = "Contacts";
   contactsContainer.append(text);
+};
+
+export const editedAt = () => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const date = new Date();
+  const time = date.getHours() + ":" + date.getMinutes();
+
+  const fullDate =
+    date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
+
+  const dateAndTime = fullDate + ", " + time;
+
+  return dateAndTime;
 };

@@ -9,6 +9,7 @@ export let contacts = [
     phone: "050456789",
     address: "USA",
     email: "John@gmail.com",
+    editedAt: "",
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export let contacts = [
     phone: "05245678910",
     address: "Alaska",
     email: "ZaRock@gmail.com",
+    editedAt: "",
   },
   {
     // contact with default img and no age
@@ -28,6 +30,7 @@ export let contacts = [
     phone: "0546543210",
     address: "Ze Jungle",
     email: "Lion@hotmail.com",
+    editedAt: "",
   },
   {
     id: 4,
@@ -37,6 +40,7 @@ export let contacts = [
     phone: "05865343210",
     address: "Romania",
     email: "car@gmail.com",
+    editedAt: "",
   },
 ];
 
