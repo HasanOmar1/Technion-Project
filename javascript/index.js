@@ -277,8 +277,7 @@ const createContactInfoElements = (data) => {
   // event to close the menu and remove its children
   contactInfoCloseMenu.addEventListener("click", () => {
     hideMenu(element.contactInfoMenu);
-    while (element.contactInfoMenu.firstChild)
-      element.contactInfoMenu.firstChild.remove();
+    utils.emptyForm(element.contactInfoMenu);
   });
 
   //name

@@ -20,6 +20,7 @@ export let contacts = [
     email: "ZaRock@gmail.com",
   },
   {
+    // contact with default img and no age
     id: 3,
     name: "Asd The Tiger",
     // img: "https://i.postimg.cc/HkbBPXj2/no-user-image.gif",
