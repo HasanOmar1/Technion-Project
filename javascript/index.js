@@ -235,7 +235,6 @@ const createElements = (data) => {
   // contact edited date and time
   const contactEditedAt = document.createElement("p");
   if (data.editedAt) contactEditedAt.innerText = "edited on " + data.editedAt;
-  else contactEditedAt.innerText = "";
 
   contactEditedAt.className = "edited";
 

@@ -144,6 +144,9 @@ export const emptyForm = (form) => {
   while (form.firstChild) form.firstChild.remove();
 };
 
+// checks if contact is updated when editing it.
+export let checkIfUpdated = false;
+
 // dynamically knows if the form is to update contact or to add contact
 export const addOrUpdateForm = (
   contacts,
@@ -215,43 +218,6 @@ export const addOrUpdateForm = (
       data.address = addressInput.value.trim();
       data.editedAt = editedAt();
     }
-
-    // let checkIfUpdated = false;
-
-    // if (isUpdating) {
-    //   if (
-    //     data.name !==
-    //       nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim() ||
-    //     data.email !== emailInput.value.trim() ||
-    //     data.age !== +ageInput.value ||
-    //     data.phone !== phoneInput.value.trim() ||
-    //     data.address !== addressInput.value.trim()
-    //   ) {
-    //     checkIfUpdated = true;
-    //   }
-
-    //   if (checkIfUpdated) {
-    //     console.log("updated");
-    //   } else {
-    //     console.log("Didnt update");
-    //   }
-    // }
-    // if (isUpdating) {
-    //   data.name =
-    //     nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim();
-    //   data.email = emailInput.value.trim();
-
-    //   data.img =
-    //     imageInput.value.trim().length !== 0
-    //       ? imageInput.value
-    //       : "https://i.postimg.cc/HkbBPXj2/no-user-image.gif";
-
-    //   if (data.age !== undefined) data.age = +ageInput.value;
-
-    //   data.phone = phoneInput.value.trim();
-    //   data.address = addressInput.value.trim();
-    //   data.editedAt = editedAt();
-    // }
 
     // empties contacts on screen
     emptyContacts(contactsContainer);
