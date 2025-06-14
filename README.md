@@ -61,6 +61,7 @@ https://colorhunt.co/palette/222831393e4600adb5eeeeee
 ![add-form](./images/readme/add-form.png)
 ![edit-form](./images/readme/edit-form.png)
 ![info-menu](./images/readme/info.png)
+![info-menu-not-full](./images/readme/info-not-full.png)
 ![search](./images/readme/search.png)
 ![no-contacts](./images/readme/no-contacts.png)
 ![effect](./images/readme/effect.png)
