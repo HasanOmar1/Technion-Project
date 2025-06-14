@@ -34,11 +34,33 @@ We have been asked to create a phone book using JavaScript in duos as our JavaSc
 - Error msg if Image link is not valid
 - "Click me" button that displays an effect, clicking it again removes the effect
 - Responsive website
+- Proper message if no contacts are found
+- One form for add and edit contact
+- Contacts counter
 
 ---
 
 #### Extra
 
+##### Effect
+
 The effect that is used is taken from this website
 
 https://www.sliderrevolution.com/design/cool-javascript-animations/
+
+##### Color Pallete
+
+Color pallete is taken from from this website
+https://colorhunt.co/palette/222831393e4600adb5eeeeee
+
+---
+
+##### Site Preview
+
+![homepage](./images/readme/home.png)
+![add-form](./images/readme/add-form.png)
+![edit-form](./images/readme/edit-form.png)
+![info-menu](./images/readme/info.png)
+![search](./images/readme/search.png)
+![no-contacts](./images/readme/no-contacts.png)
+![effect](./images/readme/effect.png)
