@@ -33,6 +33,7 @@ We have been asked to create a phone book using JavaScript in duos as our JavaSc
 - Error msg if phone number is not valid (9-11 length for it to be valid)
 - Error msg if Image link is not valid
 - "Click me" button that displays an effect, clicking it again removes the effect
+- Responsive website
 
 ---
 
