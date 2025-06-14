@@ -207,7 +207,8 @@ export const addOrUpdateForm = (
     // if the form is the update form then it updates the contact
     if (isUpdating) {
       data.name =
-        nameInput.value[0]?.toUpperCase() + nameInput.value.slice(1).trim();
+        nameInput.value.trim().at(0).toUpperCase() +
+        nameInput.value.trim().slice(1);
       data.email = emailInput.value.trim();
       data.img =
         imageInput.value.trim().length !== 0
