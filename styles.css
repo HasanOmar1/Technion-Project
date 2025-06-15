@@ -290,7 +290,8 @@ form #update-contact-btn {
   color: white;
 }
 
-form #add-contact-btn:hover {
+form #add-contact-btn:hover,
+form #update-contact-btn:hover {
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
