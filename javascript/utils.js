@@ -254,6 +254,7 @@ export const contactsText = (contactsContainer) => {
   contactsContainer.append(text);
 };
 
+// adds edited on date and time when editing a contact
 export const editedAt = () => {
   const months = [
     "January",
