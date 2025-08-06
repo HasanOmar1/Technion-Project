@@ -144,9 +144,6 @@ export const emptyForm = (form) => {
   while (form.firstChild) form.firstChild.remove();
 };
 
-// checks if contact is updated when editing it.
-export let checkIfUpdated = false;
-
 // dynamically knows if the form is to update contact or to add contact
 export const addOrUpdateForm = (
   contacts,
